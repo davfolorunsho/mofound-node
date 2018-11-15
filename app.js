@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+var mongoose = require('mongoose');
 
 app.engine('mst', mustacheExpress());
 
@@ -31,11 +32,19 @@ app.set('views', __dirname + '/views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch 404 forward to error handler
-app.use((req, res, next)=>{
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+// app.use((req, res, next)=>{
+//     var err = new Error('Not Found');
+//     err.status = 404;
+//     next(err);
+// });
+
+// Set up mongoose connection
+var mongoDB = 'mongodb://localhost:27017/mofounddb';
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// db.on('error', console.log('Error Connecting to Database'));
 
 // Error handler
 app.use((err, req, res, next)=>{
