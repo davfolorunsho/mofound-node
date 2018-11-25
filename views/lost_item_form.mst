@@ -1,0 +1,73 @@
+{{>form_header}}
+
+	<!-- Three -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header>
+						<h2> {{title}} Form</h2>
+					</header>
+
+					<form class ="centralize" action="#" method="post">
+	
+						<div class="field">
+							<label for="name">Name *</label>
+							<input name="name" id="name" type="text" placeholder="Name">
+						</div>
+						<div class="field">
+							<label for="category">Category *</label>
+							<select name= "category">
+								<option> -select- </option>
+								<option> Documents</option>
+								<option> Household</option>
+								<option> Others</option>
+							</select>
+							
+						</div>
+						<div class="field">
+							<label for="Brand">Brand *</label>
+							<input name="brand" id="brand" type="text" placeholder="brand">
+							
+						</div>
+						<div class="field">
+							<label for="color">Major Color *</label>
+							<select name= "color">
+								<option> -select- </option>
+								<option> Black</option>
+								<option> White</option>
+								<option> Blue</option>
+								<option> Red</option>
+								<option> Yellow</option>
+								<option> Pink</option>
+								<option> Others</option>
+							</select>							
+						</div>
+
+						<div class="field">
+							<label for="size">Size Group *</label>
+							<select name= "size">
+								<option> -select- </option>
+								<option> Extra Large(XL)</option>
+								<option> Large (L)</option>
+								<option> Medium (M)</option>
+								<option> Small (S)</option>
+								<option> Extra Small (XS)</option>
+							</select>							
+						</div>	
+
+						<div class="field">
+							<label for="detail"> Detail *</label>
+							<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+						</div>
+						<div class="field">
+							<label for="name">Image</label>
+							<input name="image" id="image" type="text" placeholder="Click to select upload image">
+						</div>
+					
+						<div class="field">
+							<input type="submit" value="Submit" class="small" />
+						</div>
+										
+				</div>
+			</section>
+        
+{{>form_footer}}

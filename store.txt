@@ -1,0 +1,41 @@
+<section id="center-form" class="center container">
+				<h2> {{title}} Form</h2>
+				<p> {{error}} </p>
+				<form class ="centralize" action="#" method="post">
+					<div class="field">
+						<label></label>
+						<input >
+					</div>
+					<div class="field">
+						<label for="name">Name *</label>
+						<input name="name" id="name" type="text" placeholder="Name">
+					</div>
+					<div class="field">
+						<label for="category">Category *</label>
+						<select name= "category">
+							<option> -select- </option>
+							<option> Documents</option>
+							<option> Household</option>
+							<option> Others</option>
+						</select>
+						
+					</div>	
+					<div class="field">
+						<label for="detail"> Detail *</label>
+						<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+					</div>
+					<div class="field">
+						<label for="name">Image</label>
+						<input name="image" id="image" type="text" placeholder="Click to select upload image">
+					</div>
+					<div class="field">
+						<label for="name">Code</label>
+						<input name="image" id="image" type="text" value="{{data.item_code.code}}">
+					</div>
+					<div class="field 3u$ 12u$(small)">
+						<input type="submit" value="Submit" class="fit" />
+					</div>
+
+					
+					</form>
+			</section>

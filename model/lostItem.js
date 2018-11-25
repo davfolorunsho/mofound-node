@@ -12,15 +12,15 @@ var LostItemSchema = new Schema(
         reporter: {
             type: Schema.Types.ObjectId, ref: "User"
         },
+        location: {
+            type: String,
+            default: 'Unspecified'
+        },
         status: {
             type: String,
             enum: ['B', 'NB', 'R'],
             default: 'NB'
         },
-        code: {
-            type: String,
-            unique: true
-        }
     }
 );
 
@@ -37,7 +37,7 @@ LostItemSchema.virtual('getCode')
     });
 LostItemSchema.virtual('url')
     .get(function(){
-        return '/mofound/item/'+this.item._id;
+        return '/item/lost/'+this.item._id;
     });
 
 

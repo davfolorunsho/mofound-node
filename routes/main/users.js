@@ -11,13 +11,13 @@ router.get('/new', user_controller.newUser);
 router.post('/new', user_controller.newUserPost);
 
 // View a user detail
-router.get('/user/:id', user_controller.userDetail);
+router.get('/user/:id/detail', user_controller.userDetail);
 
 // Update a user detail
-router.get('/user/edit', user_controller.updateUser);
-router.post('/user/edit', user_controller.updateUserPost);
+router.get('/user/:id/edit', user_controller.updateUser);
+router.post('/user/:id/edit', user_controller.updateUserPost);
 
 // Delete a user detail
-router.get('/user/delete', user_controller.deleteUser);
+router.get('/user/:id/delete', user_controller.deleteUser);
 
 module.exports = router;

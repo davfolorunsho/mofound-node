@@ -28,14 +28,14 @@ exports.newUserPost = function(req, res){
 
 // UPDATE: update user
 exports.updateUser = function(req, res){
-    res.send('NI: update user with id '+req._id);
+    res.send('NI: update user with id '+req.params.id);
 }
 
 exports.updateUserPost = function(req, res){
-    res.send('NI: post update user with id '+req._id);
+    res.send('NI: post update user with id '+req.params.id);
 }
 
 // DELETE: delete user
 exports.deleteUser = function(req, res){
-    res.send('NI: delete the user with id '+req._id);
+    res.send('NI: delete the user with id '+req.params.id);
 }

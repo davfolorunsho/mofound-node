@@ -17,12 +17,11 @@ router.get('/item/found/new', itemController.found_item_create_get);
 router.post('/item/found/new', itemController.found_item_create_post);
 
 router.get('/item/lost/new', itemController.lost_item_create_get);
-router.post('/item/lost/new', itemController.lost_item_create_post);
+router.post('lost/new', itemController.lost_item_create_post);
 
 // View a found and lost detail
 router.get('/item/found/:id', itemController.found_item_detail);
 router.get('/item/lost/:id', itemController.lost_item_detail);
-router.get('/item/found/code/:code', itemController.found_item_code_get);
 
 // Update a found and lost detail
 router.get('/item/found/:id', itemController.found_item_update_get);

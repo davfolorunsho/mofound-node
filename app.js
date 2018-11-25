@@ -12,6 +12,7 @@ var cache = engine.cache; // Caches the full file name with some internal data.
 var indexRouter = require('./routes/main');
 var usersRouter = require('./routes/main/users');
 var apiRouter = require('./routes/api/index');
+var adminRouter = require('./routes/admin/admin');
 
 var app = express();
 
@@ -60,5 +61,6 @@ app.use((err, req, res, next)=>{
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
+app.use('admin', adminRouter);
 
 module.exports = app;

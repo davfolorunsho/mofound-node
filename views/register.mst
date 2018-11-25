@@ -1,0 +1,47 @@
+{{>form_header}}
+
+	<!-- Three -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header>
+						<h2> {{title}} Form</h2>
+					</header>
+
+					<form class ="centralize" action="#" method="post">
+	
+						<div class="field">
+							<label for="name">Name *</label>
+							<input name="name" id="name" type="text" placeholder="Name">
+						</div>
+						<div class="field">
+							<label for="category">Category *</label>
+							<select name= "category">
+								<option> -select- </option>
+								<option> Documents</option>
+								<option> Household</option>
+								<option> Others</option>
+							</select>
+							
+						</div>	
+						<div class="field">
+							<label for="detail"> Detail *</label>
+							<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+						</div>
+						<div class="field">
+							<label for="name">Image</label>
+							<input name="image" id="image" type="text" placeholder="Click to select upload image">
+						</div>
+						<div class="field">
+							<label for="name">Code</label>
+							<input name="image" id="image" type="text" value="{{data.item_code.code}}">
+						</div>
+						<div class="field">
+							<input type="submit" value="Submit" class="small" />
+						</div>					
+					</form>
+
+										
+				</div>
+			</section>
+        
+{{>form_footer}}

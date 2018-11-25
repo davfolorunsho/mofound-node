@@ -4,13 +4,12 @@
 		<title>{{title}}</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="stylesheets/main.css" />
+		<link rel="stylesheet" href="../../stylesheets/main.css" />
 	</head>
 	<body>
-
 		<!-- Header -->
 
-			<header class="container" id="header">
+			<header id="header" class="container">
 				<div class="inner">
 					<a href="/" class="logo"><strong>MoFound</strong></a>
 					<nav id="nav">

@@ -31,8 +31,8 @@ var foundItems = [];
 
 
 // Create a new user
-function createUser(fname, email, phone, password, dob, profile_pics, isVerified, cb){
-    userdetail = {fisrtname: fname, email: email, phone: phone};
+function createUser(firstname, email, phone, password, dob, profile_pics, isVerified, cb){
+    userdetail = {firstname: firstname, email: email, phone: phone};
     
     if (dob != false) userdetail.date_of_birth = dob;
     if (password != false) userdetail.password = password;
@@ -52,9 +52,9 @@ function createUser(fname, email, phone, password, dob, profile_pics, isVerified
 };
 
 // Create items
-function createItem(name, details, category, image, cb){
-  itemdetail = {name: name, details: details, category: category};
-  if(image != image) itemdetail.image = image; 
+function createItem(name, category,brand, major_color, size_group, details , image, cb){
+  itemdetail = {name: name, category: category, brand: brand, major_color:major_color, size_group: size_group, details: details};
+  if(image != false) itemdetail.image = image; 
 
   var item = new Item(itemdetail);
   item.save(function(err){
@@ -80,7 +80,7 @@ function createFoundItem(item, reporter, status, code, cb){
       cb(err, null);
       return;
     }
-    console.log('FoundItem Created by '+foundItemdetails.reporter.firstname);
+    console.log('FoundItem Created by '+foundItemdetails);
     foundItems.push(foundItem);
     cb(null, foundItem);
   });
@@ -98,7 +98,7 @@ function createLostItem(item, reporter, status, code, cb){
       cb(err, null);
       return;
     }
-    console.log('Lost Item Created by '+lostItem.reporter.firstname);
+    console.log('Lost Item Created by '+lostItem);
     lostItems.push(lostItem);
     cb(null, lostItem);
   });
@@ -136,13 +136,13 @@ function usersCreate(cb){
 function itemsCreate(cb){
   async.parallel([
     function(callback){
-      createItem('Stainless Cooler', 'An ash colored stainless cooler with intact handle', 'Household', false, callback);
+      createItem('Stainless Cooler', 'Household', 'Thermocool', 'Blue', 'M', 'An ash colored stainless cooler with intact handle', false, callback);
     },
     function(callback){
-      createItem('Electric Touch', 'A red and rechargable touch, small sized', 'Household', false, callback);
+      createItem('Electric Touch','Household', 'Lonton', 'Yellow','S', 'A red and rechargable touch, small sized', false, callback);
     },
     function(callback){
-      createItem('Phone Battery', 'A battery for infinix Hot 4', 'Others', false, callback);
+      createItem('Phone Battery', 'Others', 'Infinix', 'Black', 'S', 'A battery for infinix Hot 4', false, callback);
     }
   ], cb);
 }

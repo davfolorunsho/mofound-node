@@ -2,6 +2,7 @@
 
 // Require Mongoose
 var mongoose = require('mongoose');
+var randomize = require('randomatic');
 
 // Define a schema
 var Schema = mongoose.Schema;
@@ -11,7 +12,8 @@ var FoundItemSchema = new Schema(
         item: {type: Schema.Types.ObjectId, ref: "Item"},
         reporter:{type: Schema.Types.ObjectId, ref: "User"},
         location: {
-            type: String
+            type: String,
+            default: 'Unspecified'
         },
         status: {
             type: String,
@@ -38,7 +40,11 @@ FoundItemSchema.virtual('getCode')
     });
 FoundItemSchema.virtual('url')
     .get(function(){
-        return '/mofound/found/'+this.item._id;
+        return '/item/found/'+this.item._id;
+    });
+FoundItemSchema.virtual('generateCode')
+    .get(function(){
+        this.code = randomize('0Aa', 7);
     });
 
 
