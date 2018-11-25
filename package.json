@@ -15,7 +15,8 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.3.7",
     "morgan": "~1.9.0",
-    "randomatic": "^3.1.1"
+    "randomatic": "^3.1.1",
+    "mustache-express": "^1.2.8"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"
