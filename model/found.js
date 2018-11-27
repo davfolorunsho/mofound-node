@@ -31,9 +31,10 @@ var FoundSchema = new Schema(
             type: String,
             enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
         },
-        details: {
+        detail: {
             type: String,
             minlength: 1,
+            default: "A "+this.major_color+" "+this.brand+""+this.name
         }, 
         image: {
             type: String

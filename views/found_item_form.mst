@@ -64,7 +64,7 @@
 						</div>
 						<div class="field">
 							<label for="name">Code</label>
-							<input name="image" id="image" type="text" value="{{data.genCode}}">
+							<input disabled="true" name="image" id="image" type="text" value="{{data.genCode}}">
 						</div>
 						<div class="field">
 							<input type="submit" value="Submit" class="small" />
