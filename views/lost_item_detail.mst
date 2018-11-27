@@ -1,3 +1,17 @@
-{{> form_header}}
-<h3> This is Lost Item detail page </h3>
-{{> form_footer}}
+{{>form_header}}
+<!-- Three -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header>
+						<h2>Lost {{title}}</h2>
+                        <p>{{errors.msg}} </p>
+					</header>
+
+                    <div>
+                        <h3> This is Lost Item detail page </h3>
+                            <p> {{data.lost_item.name}} </p>
+                    <div>
+										
+				</div>
+			</section>
+{{>form_footer}}

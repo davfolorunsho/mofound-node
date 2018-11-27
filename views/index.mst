@@ -46,7 +46,7 @@
 								<img src="images/lost_report1.png" alt="Pic 01" />
 							</div>
 							<header>
-								<h3>Report Found<br /> Click the button to report</h3>
+								<h3>Report Found<br/> Click the button to report</h3>
 							</header>
 							<p>You want to help the owner of that item get the item <br /> back, fill the found item form and a code will be <br />generated incase you want to follow up on the item.</p>
 							<footer>
@@ -58,14 +58,14 @@
 								<img src="images/follow_up1.jpeg" alt="Follow up" />
 							</div>
 							<header>
-								<h3>Follow Up<br /> Enter the item code</h3>
+								<h3>Follow Up<br/> Enter the item code</h3>
 							</header>
-                            <form>
-                                <input type="text" placeholder="Enter Code ">
+                            <form action="#" method="get">
+                                <input type="text" name="code" id="code" placeholder="Enter Code ">
                             </form>
                             <br>
 							<footer>
-								<a href="/item/found/update" class="button">Check</a>
+								<a href='/item/found/code/' class="button">Check</a>
 							</footer>
 						</article>
                         <article>
@@ -73,9 +73,9 @@
 								<img src="images/lost2.jpeg" alt="Lost Item" />
 							</div>
 							<header>
-								<h3>Report Lost<br /> Login and Report</h3>
+								<h3>Report Lost<br/> Login and Report</h3>
 							</header>
-							<p>You can report your misssing item here, but<br />you will need login details to fill this form <br /> or register if you don't have it yet.</p>
+							<p>You can report your misssing item here, but<br/>you will need login details to fill this form <br /> or register if you don't have it yet.</p>
 							<footer>
 								<a href="/item/lost/new" class="button">Report Lost</a>
 							</footer>

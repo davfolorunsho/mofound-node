@@ -7,7 +7,6 @@
 						<h2> {{title}} Form</h2>
 						<p>{{errors.msg}} </p>
 					</header>
-
 					<form class ="centralize" action="#" method="post">
 	
 						<div class="field">
@@ -18,9 +17,9 @@
 							<label for="category">Category *</label>
 							<select name= "category">
 								<option> -select- </option>
-								<option> Documents</option>
-								<option> Household</option>
-								<option> Others</option>
+								<option value="Documents"> Documents</option>
+								<option value="Household"> Household</option>
+								<option value="Others"> Others</option>
 							</select>
 							
 						</div>
@@ -33,13 +32,13 @@
 							<label for="color">Major Color *</label>
 							<select name= "color">
 								<option> -select- </option>
-								<option> Black</option>
-								<option> White</option>
-								<option> Blue</option>
-								<option> Red</option>
-								<option> Yellow</option>
-								<option> Pink</option>
-								<option> Others</option>
+								<option value="Black"> Black</option>
+								<option value="White"> White</option>
+								<option value="Blue"> Blue</option>
+								<option value="Red"> Red</option>
+								<option value="Yellow"> Yellow</option>
+								<option value="Pink"> Pink</option>
+								<option value="Others"> Others</option>
 							</select>							
 						</div>
 
@@ -47,11 +46,11 @@
 							<label for="size">Size Group *</label>
 							<select name= "size">
 								<option> -select- </option>
-								<option> Extra Large(XL)</option>
-								<option> Large (L)</option>
-								<option> Medium (M)</option>
-								<option> Small (S)</option>
-								<option> Extra Small (XS)</option>
+								<option value="XL"> Extra Large(XL)</option>
+								<option value="L"> Large (L)</option>
+								<option value="M"> Medium (M)</option>
+								<option value="S"> Small (S)</option>
+								<option value="XS"> Extra Small (XS)</option>
 							</select>							
 						</div>	
 

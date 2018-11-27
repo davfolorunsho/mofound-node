@@ -9,7 +9,7 @@
 
                     <div>
                         <h3> This is Found Item detail page </h3>
-                            <p> {{data.found_item.item.name}} </p>
+                            <p> {{data.found_item.detail}} </p>
                     <div>
 										
 				</div>

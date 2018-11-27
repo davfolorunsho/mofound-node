@@ -5,9 +5,10 @@ const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 const company = 'Mofound';
 
-var FoundItem = require('../model/foundItem');
-var LostItem = require('../model/lostItem');
+var FoundItem = require('../model/found');
+var LostItem = require('../model/lost');
 var Item = require('../model/item');
+
 var User = require('../model/user');
 var randomize = require('randomatic');
 
@@ -48,13 +49,11 @@ exports.found_item_detail = function(req, res) {
     // Get the item from the id
     async.parallel({
         found_item: function(callback) {
-            // FoundItem.find({'id': req.params.id}, callback);
-            FoundItem.count({'_id': (req.params.id)}).exec(callback);
-            // FoundItem.findById(req.params.id).exec(callback);
+            FoundItem.findOne({'_id': req.params.id}).exec(callback);
         },
         
     }, function(err, results){
-        if (err) {return next(err); }
+        if (err) {return next(err);}
 
         if (results.found_item == null){
             // No result was found
@@ -66,7 +65,7 @@ exports.found_item_detail = function(req, res) {
         console.log("showing "+results.found_item);
         res.render(
             'found_item_detail', {
-                title: results.found_item,
+                title: results.found_item.name,
                 company: "MoFound NG",             
                 error: err,
                 data: results
@@ -77,7 +76,32 @@ exports.found_item_detail = function(req, res) {
 
 // Display detail page for a specific lost item.
 exports.lost_item_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: LostItem detail: ' + req.params.id);
+    // Get the item from the id
+    async.parallel({
+        lost_item: function(callback) {
+            LostItem.findOne({'_id': req.params.id}).exec(callback);
+        },
+        
+    }, function(err, results){
+        if (err) {return next(err); }
+
+        if (results.lost_item == null){
+            // No result was found
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return err;
+        }
+        // Successful, so render
+        console.log("showing "+results.lost_item);
+        res.render(
+            'lost_item_detail', {
+                title: results.lost_item.name,
+                company: "MoFound NG",             
+                error: err,
+                data: results
+            });
+    });
+    // res.send('NOT IMPLEMENTED: LostItem detail: ' + req.params.id);
 };
 
 exports.found_item_code_get = function(req, res) {
@@ -121,17 +145,23 @@ exports.found_item_create_post = [
         const errors = validationResult(req);
 
         // Create a genre object with escaped and trimmed data
-        var item = new Item({
+        // var item = new Item({
+        //     name: req.body.name,
+        //     category: req.body.category,
+        //     brand: req.body.brand,
+        //     major_color: req.body.color,
+        //     size_group: req.body.size,
+        //     detail: req.body.detail,
+        //     image: req.body.image
+        // });
+        var found_item = new FoundItem({
             name: req.body.name,
             category: req.body.category,
             brand: req.body.brand,
             major_color: req.body.color,
             size_group: req.body.size,
             detail: req.body.detail,
-            image: req.body.image
-        });
-        var found_item = new FoundItem({
-            item: item,
+            image: req.body.image,
             reporter: getUnregUser(req.body.phone),
             status: req.body.status,
             code: generateCode()
@@ -150,6 +180,10 @@ exports.found_item_create_post = [
         }
         else {
             // Data from form is valid. Save the item
+            // Save the item first
+            // item.save(function (err){
+            //     if (err) {return next(err); }
+            // });
             found_item.save(function (err) {
                 if (err) { return next(err); }
                 // Item is saved. Redirect to item detail page.
@@ -166,8 +200,8 @@ exports.found_item_create_post = [
 // Display lostItem create form on GET.
 exports.lost_item_create_get = function(req, res) {
     async.parallel({
-        user_count: function(callback){
-            FoundItem.count({}, callback);
+        lost_count: function(callback){
+            LostItem.count({}, callback);
         },      
         
     }, function(err, results){
@@ -197,19 +231,16 @@ exports.lost_item_create_post = [
         const errors = validationResult(req);
 
         // Create a lost object with escaped and trimmed
-        var item = new Item({
+        var lost_item = new LostItem({
             name: req.body.name,
             category: req.body.category,
             brand: req.body.brand,
             major_color: req.body.color,
             size_group: req.body.size,
             detail: req.body.detail,
-            image: req.body.image
-        });
-        var lost_item = new LostItem({
-            item: item,
+            image: req.body.image,
             reporter: getUnregUser(req.body.phone),
-            status: req.body.status,
+            status: req.body.status,            
         });
 
         if (!errors.isEmpty()) {
