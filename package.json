@@ -40,5 +40,13 @@
     "finding"
   ],
   "author": "Ndu Sunday <ndusunday@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunnyBe/mofound-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SunnyBe/mofound-node/issues"
+  },
+  "homepage": "https://github.com/SunnyBe/mofound-node#readme"
 }
