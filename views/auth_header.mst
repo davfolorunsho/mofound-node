@@ -7,14 +7,17 @@
 		<link rel="stylesheet" href="../../stylesheets/main.css" />
 	</head>
 	<body>
+
 		<!-- Header -->
-			<header id="header" class="container">
+
+			<header class="container" id="header">
 				<div class="inner">
 					<a href="/" class="logo"><strong>MoFound</strong></a>
 					<nav id="nav">
 						<a href="/">Home</a>
 						<a href="#">About</a>
 						<a href="#footer">Contact Us</a>
+						<a href="/users/login">Logout</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>

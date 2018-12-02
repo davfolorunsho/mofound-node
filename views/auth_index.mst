@@ -1,4 +1,4 @@
-{{> header}}
+{{> auth_header}}
 
 <!-- Banner -->
 			<section class="container" id="banner">
@@ -43,7 +43,7 @@
 					<div class="flex flex-3">
 						<article>
 							<div class="image round">
-								<img src="images/lost_report1.png" alt="Pic 01" />
+								<img src="../../images/lost_report1.png" alt="Pic 01" />
 							</div>
 							<header>
 								<h3>Report Found<br/> Click the button to report</h3>
@@ -55,24 +55,22 @@
 						</article>
 						<article>
 							<div class="image round">
-								<img src="images/follow_up1.jpeg" alt="Follow up" />
+								<img src="../../images/follow_up1.jpeg" alt="Follow up" />
 							</div>
 							<header>
 								<h3>Follow Up<br/> Enter the item code</h3>
 							</header>
-                            <form action="/item/code/" method="get">
-                                <input type="text" name="code" id="code" placeholder="Enter Code "/>
-								<br> <br>
-								<input type="submit" value="Check" class="button"/>
+                            <form action="#" method="get">
+                                <input type="text" name="code" id="code" placeholder="Enter Code ">
                             </form>
                             <br>
-							{{! <footer>
+							<footer>
 								<a href='/item/found/code/' class="button">Check</a>
-							</footer> }}
+							</footer>
 						</article>
                         <article>
 							<div class="image round">
-								<img src="images/lost2.jpeg" alt="Lost Item" />
+								<img src="../../images/lost2.jpeg" alt="Lost Item" />
 							</div>
 							<header>
 								<h3>Report Lost<br/> Login and Report</h3>

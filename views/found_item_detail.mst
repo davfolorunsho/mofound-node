@@ -2,16 +2,71 @@
 <!-- Three -->
 			<section id="main" class="wrapper">
 				<div class="inner">
-					<header>
-						<h2>Found {{title}}</h2>
-                        <p>{{errors.msg}} </p>
+					<header class="align-center">
+						<h2> Reported {{title}} </h2>
 					</header>
+					<div class="table-wrapper">
+						<table>
+							<thead> 
+								<tr> 
+									<h4>Item Code: {{data.found_item.code}}</h4>
+									<p> You can copy this code to follow up on the item. </p>
 
-                    <div>
-                        <h3> This is Found Item detail page </h3>
-                            <p> {{data.found_item.detail}} </p>
-                    <div>
-										
+									{{#data.found_item.match_found}}
+									<p class="success"> Looks Like a match was found.</p>
+									{{/data.found_item.match_found}}
+									
+									{{^data.found_item.match_found}}
+									<p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p>
+									{{/data.found_item.match_found}}
+								</tr>
+							</thead>
+							<tbody>
+								{{# data.found_item.image}}
+									<tr>
+									<td>{{data.found_item.image}}</td>
+									</tr>
+								{{/ data.found_item.image}}
+								<tr>
+									<td>Item Name</td>
+									<td>{{data.found_item.name}}</td>
+								</tr>
+								<tr>
+									<td>Item Category</td>
+									<td>{{data.found_item.category}}</td>
+								</tr>	
+								<tr>
+									<td>Item Brand</td>
+									<td>{{data.found_item.brand}}</td>
+								</tr>	
+								<tr>
+									<td>Major Color</td>
+									<td>{{data.found_item.major_color}}</td>
+								</tr>	
+								<tr>
+									<td>Size Group</td>
+									<td>{{data.found_item.size_group}}</td>
+								</tr>	
+								<tr>
+									<td>Generated Detail</td>
+									<td>{{data.found_item.detail}}</td>
+								</tr>	
+								<tr>
+									<td>Status</td>
+									<td>{{data.found_item.status}}</td>
+								</tr>							
+							</tbody>
+							<tfoot>
+								<tr class="align-center">
+									<td colspan="1">
+									<a href="/item/found/{{data.found_item._id}}" class="button special small align-center"> Find Match</a>
+									</td>
+									<td class="actions">
+									<a href="/item/found/{{data.found_item._id}}/update" class="button special small align-center"> Update</a>
+									</td>
+								</tr>
+							</tfoot>
+						</table>					
 				</div>
 			</section>
 {{>form_footer}}

@@ -6,34 +6,31 @@
 					<header>
 						<h2> {{title}} Form</h2>
 					</header>
-
+					{{#errors}}
+					<p>{{errors}}</p>
+					{{/errors}}
 					<form class ="centralize" action="#" method="post">
 	
 						<div class="field">
 							<label for="name">Name *</label>
-							<input name="name" id="name" type="text" placeholder="Name">
+							<input name="name" id="name" type="text" placeholder="Enter Name">
+						</div>
+						
+						<div class="field">
+							<label for="email">Email *</label>
+							<input name="email" id="email" type="text" placeholder="Enter Email">
 						</div>
 						<div class="field">
-							<label for="category">Category *</label>
-							<select name= "category">
-								<option> -select- </option>
-								<option> Documents</option>
-								<option> Household</option>
-								<option> Others</option>
-							</select>
-							
-						</div>	
-						<div class="field">
-							<label for="detail"> Detail *</label>
-							<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+							<label for="phone">Phone *</label>
+							<input name="phone" id="phone" type="text" placeholder="Enter Phone">
 						</div>
 						<div class="field">
-							<label for="name">Image</label>
-							<input name="image" id="image" type="text" placeholder="Click to select upload image">
+							<label for="password">Password *</label>
+							<input name="password" id="password" type="password" placeholder="Enter Password">
 						</div>
 						<div class="field">
-							<label for="name">Code</label>
-							<input name="image" id="image" type="text" value="{{data.item_code.code}}">
+							<label for="cpassword">Confirm Password *</label>
+							<input name="cpassword" id="cpassword" type="password" placeholder="Confirm Password">
 						</div>
 						<div class="field">
 							<input type="submit" value="Submit" class="small" />

@@ -31,10 +31,12 @@ var LostSchema = new Schema(
             type: String,
             enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
         },
+        other_info: {
+            type: String,
+        },
         detail: {
             type: String,
-            minlength: 1,
-            default: "A "+this.major_color+" "+this.brand+""+this.name
+            unique: true
         }, 
         image: {
             type: String
@@ -52,10 +54,17 @@ var LostSchema = new Schema(
         code: {
             type: String,
             unique: true
+        },
+        match_found: {
+            type: Boolean,
+            default: false
         }
     }
 );
 //--- Virtual methods
+LostSchema.methods.makeDetail = function(){
+    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info;
+}
 
 // Virtual for user name
 LostSchema.virtual('getName')

@@ -2,16 +2,65 @@
 <!-- Three -->
 			<section id="main" class="wrapper">
 				<div class="inner">
-					<header>
-						<h2>Lost {{title}}</h2>
-                        <p>{{errors.msg}} </p>
+					<header class="align-center">
+						<h2> Reported {{title}} </h2>
 					</header>
+					<div class="table-wrapper">
+						<table>
+							<thead> 
+								<tr> 
+									<h4>Item Information</h4>
+									<p> This is a break down information about your item. </p>
+									{{#data.lost_item.match_found}}
+									<p class="success"> Looks Like a match was found, Admin will contact you to confirm ownership!</p>
+									{{/data.lost_item.match_found}}
 
-                    <div>
-                        <h3> This is Lost Item detail page </h3>
-                            <p> {{data.lost_item.name}} </p>
-                    <div>
-										
+									{{^data.lost_item.match_found}}
+									<p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p>
+									{{/data.lost_item.match_found}}
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Item Name</td>
+									<td>{{data.lost_item.name}}</td>
+								</tr>
+								<tr>
+									<td>Item Category</td>
+									<td>{{data.lost_item.category}}</td>
+								</tr>	
+								<tr>
+									<td>Item Brand</td>
+									<td>{{data.lost_item.brand}}</td>
+								</tr>	
+								<tr>
+									<td>Major Color</td>
+									<td>{{data.lost_item.major_color}}</td>
+								</tr>	
+								<tr>
+									<td>Size Group</td>
+									<td>{{data.lost_item.size_group}}</td>
+								</tr>	
+								<tr>
+									<td>Generated Detail</td>
+									<td>{{data.lost_item.detail}}</td>
+								</tr>
+								<tr>
+									<td>Status</td>
+									<td>{{data.lost_item.status}}</td>
+								</tr>								
+							</tbody>
+							<tfoot>
+								<tr class="align-center">
+									<td colspan="1">
+									<a href="/item/lost/{{data.lost_item._id}}" class="button special small align-center"> Find Match</a>
+									</td>
+									<td class="actions">
+									<a href="/item/lost/{{data.lost_item._id}}/update" class="button special small align-center"> Update</a>
+									</td>
+								</tr>
+							</tfoot>
+						</table>					
 				</div>
 			</section>
 {{>form_footer}}

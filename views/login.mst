@@ -11,18 +11,19 @@
 	
 						<div class="field">
 							<label for="email">Email *</label>
-							<input name="email" id="email" type="email" placeholder="Enter email">
+							<input class="small" name="email" id="email" type="email" placeholder="Enter email">
 						</div>
 						
 						<div class="field">
 							<label for="password"> Password *</label>
-							<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+							<input class="small" name="password" id="password" type="password" placeholder="Enter password">
 						</div>
 			
 						<div class="field">
 							<input type="submit" value="Submit" class="small" />
 						</div>					
 					</form>
+					<p> You want to register? Click <a href="/users/new"> Register</a> </p> 
 				</div>
 			</section>
         

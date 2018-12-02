@@ -21,6 +21,7 @@ var FoundSchema = new Schema(
         brand: {
             type: String,
             minlength: [1, 'Brand should exceed 1 character'],
+            default: 'Unbranded'
 
         },
         major_color: {
@@ -31,10 +32,12 @@ var FoundSchema = new Schema(
             type: String,
             enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
         },
+        other_info: {
+            type: String,
+        },
         detail: {
             type: String,
-            minlength: 1,
-            default: "A "+this.major_color+" "+this.brand+""+this.name
+            unique:true
         }, 
         image: {
             type: String
@@ -52,11 +55,19 @@ var FoundSchema = new Schema(
         code: {
             type: String,
             unique: true
+        },
+        match_found: {
+            type: Boolean,
+            default: false
         }
     }
 );
 
 //--- Virtual methods
+
+FoundSchema.methods.makeDetail = function(){
+    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info;
+}
 
 // Virtual for user name
 FoundSchema.virtual('getName')
@@ -67,10 +78,10 @@ FoundSchema.virtual('url')
     .get(function(){
         return '/item/found/'+this._id;
     });
-FoundSchema.virtual('getCode')
-    .get(function(){
-        return '/item/found/'+this.code;
-    });
+FoundSchema.virtual('setDetail')
+    .get(()=>{
+        this.detail = this.major_color+" "+this.brand+" "+this.name
+    })
 FoundSchema.virtual('generateCode')
     .get(function(){
         this.code = randomize('0Aa', 7);

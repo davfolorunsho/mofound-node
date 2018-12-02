@@ -1,17 +1,17 @@
-{{>form_header}}
+{{>auth_header}}
 
 	<!-- Three -->
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header>
 						<h2> {{title}} Form</h2>
+						<p>{{errors.message}} </p>
 					</header>
-
 					<form class ="centralize" action="#" method="post">
 	
 						<div class="field">
 							<label for="name">Name *</label>
-							<input name="name" id="name" type="text" placeholder="Name">
+							<input name="name" id="name" type="text" placeholder="Name" value="{{data.lost_item.name}}">
 						</div>
 						<div class="field">
 							<label for="category">Category *</label>
@@ -55,18 +55,17 @@
 						</div>	
 
 						<div class="field">
-							<label for="detail"> Detail *</label>
-							<textarea name="detail" id="detail"rows="6" type="textarea" placeholder="Enter detail of object"></textarea>
+							<label for="other_info"> Other Information</label>
+							<textarea name="other_info" id="other_info"rows="6" type="textarea" placeholder="Enter other detail of item"></textarea>
 						</div>
 						<div class="field">
 							<label for="name">Image</label>
 							<input name="image" id="image" type="text" placeholder="Click to select upload image">
 						</div>
-						
 						<div class="field">
 							<input type="submit" value="Submit" class="small" />
-						</div>										
+						</div>					
+					</form>								
 				</div>
-			</section>
-        
+			</section>        
 {{>form_footer}}
