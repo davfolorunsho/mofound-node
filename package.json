@@ -29,7 +29,7 @@
     "string-similarity": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.7"
   },
   "description": "A project to assist finding lost items and return them to the owners",
   "main": "app.js",
