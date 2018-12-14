@@ -4,7 +4,7 @@
 
 					<h3>Get in touch</h3>
 
-					<form action="#" method="post">
+					<form action="/message" method="post">
 
 						<div class="field half first">
 							<label for="name">Name</label>
@@ -35,6 +35,7 @@
 			<script src="../../javascripts/skel.min.js"></script>
 			<script src="../../javascripts/util.js"></script>
 			<script src="../../javascripts/main.js"></script>
+			<script src="../../javascripts/myfile.js"></script>
 
 	</body>
 </html>

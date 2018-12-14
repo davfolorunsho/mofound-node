@@ -1,7 +1,7 @@
 {{> auth_header}}
 
 <!-- Banner -->
-			<section class="container" id="banner">
+			<section class="" id="banner">
 				<div class="inner">
 					<header>
 						<h1>Welcome to Mofound</h1>
@@ -42,53 +42,50 @@
 				<div class="inner">
 					<div class="flex flex-3">
 						<article>
-							<div class="image round">
-								<img src="../../images/lost_report1.png" alt="Pic 01" />
+							<div class="image">
+								<a href="/item/found/new"><img src="../../images/reportfounditem.png" alt="Pic 01" /></a>
 							</div>
 							<header>
-								<h3>Report Found<br/> Click the button to report</h3>
+								<a href="/item/found/new" class="button">Enter Found Item</a>								
 							</header>
-							<p>You want to help the owner of that item get the item <br /> back, fill the found item form and a code will be <br />generated incase you want to follow up on the item.</p>
+			
 							<footer>
-								<a href="/item/found/new" class="button">Report Found</a>
+								<br>
+								<p>You want to help the owner of that item get the item <br/> back, fill the found item form and a code will be <br />generated incase you want to follow up on the item.</p>
+								{{! <h3>Report Found</h3>								 }}
 							</footer>
 						</article>
-						<article>
-							<div class="image round">
-								<img src="../../images/follow_up1.jpeg" alt="Follow up" />
-							</div>
+						<article>							
 							<header>
-								<h3>Follow Up<br/> Enter the item code</h3>
-							</header>
-                            <form action="#" method="get">
-                                <input type="text" name="code" id="code" placeholder="Enter Code ">
-                            </form>
-                            <br>
+								<div class="image">
+									<img src="../../images/follow_up1.jpeg" alt="Follow up" />
+									<h4>Enter the item code</h4>	
+									<p>Follow up on items reported</p>
+								</div>
+								<p class="danger">{{error}}</p>														
+							</header>                        
 							<footer>
-								<a href='/item/found/code/' class="button">Check</a>
+								<form action="/item/code/" method="get">
+									<input type="text" name="code" id="code" placeholder="Enter Code"/>
+									<br>
+									<input type="submit" value="Check" class="button"/>
+                            	</form>								
 							</footer>
 						</article>
                         <article>
-							<div class="image round">
-								<img src="../../images/lost2.jpeg" alt="Lost Item" />
+							<div class="image">
+								<img src="../../images/reportlostitem.png" alt="Lost Item" />
 							</div>
 							<header>
-								<h3>Report Lost<br/> Login and Report</h3>
+								<a href="/item/lost/new" class="button">Enter Lost Item</a>
 							</header>
-							<p>You can report your misssing item here, but<br/>you will need login details to fill this form <br /> or register if you don't have it yet.</p>
 							<footer>
-								<a href="/users/login" class="button">Report Lost</a>
+								{{! <h3>Report Lost<br/> Login and Report</h3> }}
+								<br>
+								<p>You can report your misssing item here, but<br/>you will need login details to fill this form <br /> or register if you don't have it yet.</p>
 							</footer>
 						</article>
 					</div>
 				</div>
 			</section>
-{{! Reports }}
-            <section class="align-center">
-                <div>
-                    <h2> Users: <span>{{data.user_count}} | Found: {{data.found_item_count}} | Returned: {{data.returned_item_count}} </span> </h2>
-                </div>
-
-            </section>
-
 {{>footer}}

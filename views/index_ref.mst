@@ -1,0 +1,96 @@
+{{> header}}
+
+<!-- Banner -->
+			<section class="container" id="banner">
+				<div class="inner">
+					<header>
+						<h1>Welcome to Mofound</h1>
+					</header>
+
+					<div class="flex flex-3 flex-patch">
+
+						<div>
+							<span class="icon fa-file-text"></span>
+							<h3>You Report</h3>
+							<p>You report a missing or found item</p>
+						</div>
+
+						<div>
+							<span class="icon fa-steam"></span>
+							<h3>System Matches</h3>
+							<p>The system helps to match lost </p>
+                            <p>item to found ones</p>
+						</div>
+
+						<div>
+							<span class="icon fa-check-square-o"></span>
+							<h3>We Return</h3>
+							<p>We help owners access their items back</p>
+						</div>
+
+					</div>
+
+					<footer>
+						<a href="#three" class="button">Get Started</a>
+					</footer>
+				</div>
+			</section>
+
+
+		<!-- Three -->
+			<section id="three" class="wrapper align-center">
+				<div class="inner">
+					<div class="flex flex-3">
+						<article>
+							<div class="image">
+								<img src="images/lost_report1.png" alt="Pic 01" />
+							</div>
+							<header>
+								<h3>Report Found<br/> Click the button to report</h3>
+							</header>
+							<p>You want to help the owner of that item get the item <br /> back, fill the found item form and a code will be <br />generated incase you want to follow up on the item.</p>
+							<footer>
+								<a href="/item/found/new" class="button">Report Found</a>
+							</footer>
+						</article>
+						<article>
+							<div class="image">
+								<img src="images/follow_up1.jpeg" alt="Follow up" />
+							</div>
+							<header>
+								<h3>Follow Up<br/> Enter the item code</h3>
+							</header>
+                            <form action="/item/code/" method="get">
+                                <input type="text" name="code" id="code" placeholder="Enter Code "/>
+								<br> <br>
+								<input type="submit" value="Check" class="button"/>
+                            </form>
+                            <br>
+							{{! <footer>
+								<a href='/item/found/code/' class="button">Check</a>
+							</footer> }}
+						</article>
+                        <article>
+							<div class="image">
+								<img src="images/lost2.jpeg" alt="Lost Item" />
+							</div>
+							<header>
+								<h3>Report Lost<br/> Login and Report</h3>
+							</header>
+							<p>You can report your misssing item here, but<br/>you will need login details to fill this form <br /> or register if you don't have it yet.</p>
+							<footer>
+								<a href="/users/login" class="button">Report Lost</a>
+							</footer>
+						</article>
+					</div>
+				</div>
+			</section>
+{{! Reports }}
+            <section class="align-center">
+                <div>
+                    <h2> Users: <span>{{data.user_count}} | Found: {{data.found_item_count}} | Returned: {{data.returned_item_count}} </span> </h2>
+                </div>
+
+            </section>
+
+{{>footer}}

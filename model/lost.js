@@ -9,14 +9,12 @@ var Schema = mongoose.Schema;
 var LostSchema = new Schema(
     {
         name: {
-            type: String,
-            minlength:[2, 'Name must be more than 2 character'],
-            maxlength: [50, 'Name should not exeed 50 Characters'], 
+            type: String, 
             required: [true, 'You must specify the name']
         },        
         category: {
             type: String,
-            enum: ['Documents', 'Household','Religous', 'Bottled Products', 'Others' ]
+            // enum: ['Documents', 'Household','Religous', 'Bottled Products', 'Others' ]
         },
         brand: {
             type: String,
@@ -25,11 +23,10 @@ var LostSchema = new Schema(
         },
         major_color: {
             type: String,
-            enum: ['Blue', 'Red', 'White', 'Black', 'Green','Yellow', 'Pink', 'Purple', 'Others']
         },
         size_group :{
             type: String,
-            enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
+            // enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
         },
         other_info: {
             type: String,
@@ -48,8 +45,8 @@ var LostSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['B', 'NB', 'R'],
-            default: 'NB'
+            enum: ['Boxed', 'Not Boxed', 'Returned'],
+            default: 'Not Boxed'
         },
         code: {
             type: String,
@@ -58,12 +55,16 @@ var LostSchema = new Schema(
         match_found: {
             type: Boolean,
             default: false
+        },
+        receiver_code: {
+            type: String,
         }
     }
 );
 //--- Virtual methods
 LostSchema.methods.makeDetail = function(){
-    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info;
+    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category.";
+    return;
 }
 
 // Virtual for user name
@@ -74,6 +75,12 @@ LostSchema.virtual('getName')
 LostSchema.virtual('url')
     .get(function(){
         return '/item/lost/'+this._id;
+    });
+LostSchema.virtual('genDetail')
+    .get(function(){
+        this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category.";
+        return this.makeDetail();
+        // return;
     });
 LostSchema.virtual('generateCode')
     .get(function(){

@@ -47,18 +47,15 @@ app.use(require('flash')());
 
 app.engine('mst', mustacheExpress());
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'mst');
-app.set('views', __dirname + '/views');
+// app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, 'views'));
 // app.set('partials', __dirname + '/views/partials');
 // app.engine('mst', mustache(__dirname + 'views/partials', '.mst'));
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// Catch 404 forward to error handler
-// app.use((req, res, next)=>{
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
+
 
 // Set up mongoose connection
 // var mongoDB = 'mongodb://localhost:27017/mofounddb';
@@ -70,21 +67,39 @@ mongoose.Promise = global.Promise;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // db.on('error', console.log('Error Connecting to Database'));
 
-// Error handler
-
-app.use((err, req, res, next)=>{
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err: {};
-
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
-app.use('admin', adminRouter);
+app.use('/admin', adminRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    
+    var err = new Error('Something went wrong or the resource you want to access in not found.');
+    err.status = 404;
+    next(err);
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+    // render the error page
+    console.error(err.message);
+    res.status(err.status || 500);
+    // res.render('error');
+    res.redirect('/error');
+  }); 
+
+  // app.use(function(err, req, res, next) {
+  //   console.error(err.message);
+
+  //   if (!err.statusCode) err.statusCode = 500;
+  //   res.status(err.statusCode).send(err.message);
+  //   res.render('error');
+  // })
 
 module.exports = app;

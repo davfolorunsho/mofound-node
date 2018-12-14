@@ -1,0 +1,18 @@
+{{> header}}
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h2>Sorry, Page Not Found. </h2>
+					</header>
+					<div class="danger">
+                    {{# error}}
+                        <h2>Error Status: {{status}}</h2>
+                    {{/ error}}
+					<p>  Something went wrong or the resource you are looking was not found!!!</p>
+					<p> You can contact admin at admin@mofound.com to report</p>
+					<p> Or Call +2348031162141</p>
+                    </div>						
+				</div>
+			</section>
+
+{{> footer}}

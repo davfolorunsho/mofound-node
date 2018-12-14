@@ -6,7 +6,6 @@ var async = require('async');
 const company = 'Mofound';
 
 // Models
-var Item = require('../model/item');
 var FoundItem = require('../model/foundItem');
 var LostItem = require('../model/lostItem');
 var User = require('../model/user');
@@ -19,10 +18,6 @@ exports.index = function(req, res){
         user_count: function(callback){
             User.count({}, callback);
         },
-        item_count: function(callback) {
-            // Item.count({status: 'Completed'}, callback);
-            Item.count({}, callback);
-        },
         found_item_count: function(callback){
             FoundItem.count({}, callback);
         },
@@ -30,10 +25,15 @@ exports.index = function(req, res){
             LostItem.count({}, callback);
         },
         returned_item_count: function(callback){
-            FoundItem.count({'status': 'R'}, callback);
+            LostItem.count({'status': 'R'}, callback);
         }
     }, function(err, results){
-        if (err) console.log('Error occurred: '+err);
+        if (err) {
+            var err = new Error('Response from database was not successful');
+            err.status = 444;
+            console.log('Error occurred: '+err.message);
+            next(err);
+        }
 
         // console.log('Done pulling: '+results);
         res.render('index', {
@@ -43,6 +43,16 @@ exports.index = function(req, res){
             data: results});
     });
 }
+// Get the about us page
+exports.about_get = function(req, res){
+    res.render('about', {title: "About"});
+}
+
+// Get the error page
+exports.error_get = function(req, res){
+    res.render('error', {title: "Error"});
+}
+
 // Display list of all items.
 exports.item_list = function(req, res) {
     res.send('NOT IMPLEMENTED: Item list');

@@ -11,13 +11,14 @@
 								<tr> 
 									<h4>Item Code: {{data.found_item.code}}</h4>
 									<p> You can copy this code to follow up on the item. </p>
+									<p class="success">Your Item was registered successfully!!! </p>
 
 									{{#data.found_item.match_found}}
-									<p class="success"> Looks Like a match was found.</p>
+									{{! <p class="success"> Looks Like a match was found.</p> }}
 									{{/data.found_item.match_found}}
 									
 									{{^data.found_item.match_found}}
-									<p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p>
+									{{! <p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p> }}
 									{{/data.found_item.match_found}}
 								</tr>
 							</thead>
@@ -44,8 +45,8 @@
 									<td>{{data.found_item.major_color}}</td>
 								</tr>	
 								<tr>
-									<td>Size Group</td>
-									<td>{{data.found_item.size_group}}</td>
+									<td>Lost Location</td>
+									<td>{{data.found_item.location}}</td>
 								</tr>	
 								<tr>
 									<td>Generated Detail</td>
@@ -54,7 +55,11 @@
 								<tr>
 									<td>Status</td>
 									<td>{{data.found_item.status}}</td>
-								</tr>							
+								</tr>	
+								<tr>
+									<td>Reporter</td>
+									<td>{{data.found_item.reporter}}</td>
+								</tr>						
 							</tbody>
 							<tfoot>
 								<tr class="align-center">

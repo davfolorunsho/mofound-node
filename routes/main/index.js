@@ -11,6 +11,8 @@ var userController = require('../../controller/userController');
 
 /* GET home page. */
 router.get('/', indexController.index);
+router.get('/about', indexController.about_get);
+router.get('/error', indexController.error_get);
 
 router.get('/items', itemController.item_list);
 
@@ -39,7 +41,7 @@ router.get('/item/lost/:id/update', itemController.lost_item_update_get);
 
 
 router.post('/item/found/:id/update', itemController.found_item_update_post);
-router.post('/lost/:id/update', itemController.lost_item_update_post);
+router.post('/item/lost/:id/update', itemController.lost_item_update_post);
 
 // Delete a item detail
 router.get('/item/found/:id/delete', itemController.found_item_delete_get);

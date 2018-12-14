@@ -16,21 +16,19 @@ var FoundSchema = new Schema(
         },        
         category: {
             type: String,
-            enum: ['Documents', 'Household','Religous', 'Bottled Products', 'Others' ]
+            // enum: ['Documents', 'Household','Religious', 'Bottled', 'Electronic', 'Others' ]
         },
         brand: {
             type: String,
             minlength: [1, 'Brand should exceed 1 character'],
             default: 'Unbranded'
-
         },
         major_color: {
             type: String,
-            enum: ['Blue', 'Red', 'White', 'Black', 'Green','Yellow', 'Pink', 'Purple', 'Others']
         },
         size_group :{
             type: String,
-            enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
+            // enum: ['XL', 'L', 'M', 'S', 'XS', 'Others']
         },
         other_info: {
             type: String,
@@ -49,8 +47,8 @@ var FoundSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['B', 'NB', 'R'],
-            default: 'NB'
+            enum: ['Boxed', 'Not Boxed', 'Returned'],
+            default: 'Not Boxed'
         },
         code: {
             type: String,
@@ -66,7 +64,7 @@ var FoundSchema = new Schema(
 //--- Virtual methods
 
 FoundSchema.methods.makeDetail = function(){
-    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info;
+    this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category";
 }
 
 // Virtual for user name

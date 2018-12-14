@@ -4,70 +4,64 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header>
-						<h2> {{title}} Form</h2>
-						<p>{{errors.message}} </p>
+						<h3> {{title}} Item Form</h3>
+						{{#error}}
+						<p class="danger">{{msg}} </p>
+						{{/error}}
 					</header>
-					<form class ="centralize" action="#" method="post">
-	
-						<div class="field">
-							<label for="name">Name *</label>
+					<form class ="centralize" action="#" method="post">	
+						<div class="field half first">
+							<label for="name">Item Name *</label>
 							<input name="name" id="name" type="text" placeholder="Name" value="{{data.found_item.name}}">
 						</div>
-						<div class="field">
-							<label for="category">Category *</label>
-							<select name= "category">
-								<option> -select- </option>
-								<option value="Documents"> Documents</option>
-								<option value="Household"> Household</option>
-								<option value="Others"> Others</option>
-							</select>
-							
-						</div>
-						<div class="field">
-							<label for="Brand">Brand *</label>
-							<input name="brand" id="brand" type="text" placeholder="brand">
-							
-						</div>
-						<div class="field">
-							<label for="color">Major Color *</label>
-							<select name= "color">
-								<option> -select- </option>
-								<option value="Black"> Black</option>
-								<option value="White"> White</option>
-								<option value="Blue"> Blue</option>
-								<option value="Red"> Red</option>
-								<option value="Yellow"> Yellow</option>
-								<option value="Pink"> Pink</option>
-								<option value="Others"> Others</option>
-							</select>							
+						<div class="field half">
+							<label for="Brand">Item Brand</label>
+							<input name="brand" id="brand" type="text" placeholder="brand" value="{{data.found_item.brand}}">
 						</div>
 
-						<div class="field">
-							<label for="size">Size Group *</label>
-							<select name= "size">
+						<div class="field half first">
+							<label for="category">Category *</label>
+							<select name= "category" value="{{data.found_item.category}}">
 								<option> -select- </option>
-								<option value="XL"> Extra Large(XL)</option>
-								<option value="L"> Large (L)</option>
-								<option value="M"> Medium (M)</option>
-								<option value="S"> Small (S)</option>
-								<option value="XS"> Extra Small (XS)</option>
+								<option value="Documents"> Documents (ID cards, Books ...)</option>
+								<option value="Household"> Household (Pressing Iron...) </option>
+								<option value="Electronic"> Electronic(Electronic devices)</option>
+								<option value="Bottled"> Bottled (Bottled products)</option>
+								<option value="Religious"> Religious(Religious item)</option>
+								<option value="Others"> Others(Item not listed)</option>
 							</select>							
-						</div>	
+						</div>
+						
+						<div class="field half">
+							<label for="color">Major Color</label>
+							<input type ="text" name="color" id="color" value="{{data.found_item.major_color}}"/>							
+						</div>
+
+						<div class="field half first">
+							<label for="size">Found Location</label>
+							<input type="text" name="location" id="location" autocomplete="true" value="{{data.found_item.location}}"/>							
+						</div>
+
+						<div class="field half">
+							<label for="size">Reporter's Phone No</label>
+							<input type="text" name="reporter" id="reporter" value="{{data.found_item.reporter}}"/>							
+						</div>
+
 
 						<div class="field">
 							<label for="other_info"> Other Information</label>
-							<textarea name="other_info" id="other_info"rows="6" type="textarea" placeholder="Enter other detail of item"></textarea>
+							<textarea name="other_info" id="other_info"rows="6" type="textarea" placeholder="Enter other detail of item">
+								{{data.found_item.other_info}}
+							</textarea>
 						</div>
 						<div class="field">
 							<label for="name">Image</label>
-							<input name="image" id="image" type="text" placeholder="Click to select upload image">
+							<input name="image" id="image" type="file" placeholder="Click to select upload image">
 						</div>
 						<div class="field">
-							<input type="submit" value="Submit" class="small" />
+							<input type="submit" value="Submit" class="small smaller" />
 						</div>					
-					</form>
-
-										
+					</form>										
 				</div>
 			</section>
         
