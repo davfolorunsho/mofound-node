@@ -7,6 +7,7 @@ var session = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
 // var {MongoClient} = require("mongodb");
+var multer  = require('multer')
 
 var mustacheExpress = require('mustache-express');
 // var mustache = require('mustache');
@@ -58,8 +59,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Set up mongoose connection
-// var mongoDB = 'mongodb://localhost:27017/mofounddb';
-var mongoDB = "mongodb://admin:mofound2admin@ds115244.mlab.com:15244/mofounddb"
+var mongoDB = 'mongodb://localhost:27017/mofounddb';
+// var mongoDB = "mongodb://admin:mofound2admin@ds115244.mlab.com:15244/mofounddb"
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 // mongoose.connect(mongoDB, { useNewUrlParser: true })

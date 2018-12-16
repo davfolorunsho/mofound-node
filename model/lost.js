@@ -36,7 +36,8 @@ var LostSchema = new Schema(
             unique: true
         }, 
         image: {
-            type: String
+            data: Buffer, 
+            contentType: String
         },
         reporter:{type: String, default: 'Unknown'},
         location: {

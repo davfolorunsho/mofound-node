@@ -64,7 +64,7 @@
 							<tfoot>
 								<tr class="align-center">
 									<td colspan="1">
-									<a href="/item/found/{{data.found_item._id}}" class="button special small align-center"> Find Match</a>
+									<a href="/item/found/{{data.found_item._id}}/delete" class="button special small align-center"> Delete Item</a>
 									</td>
 									<td class="actions">
 									<a href="/item/found/{{data.found_item._id}}/update" class="button special small align-center"> Update</a>

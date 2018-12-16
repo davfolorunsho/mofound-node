@@ -11,14 +11,9 @@
 								<tr> 
 									<h4>Item Code: {{data.lost_item.code}}</h4>
 									<p> You can copy this code to follow up on the item. </p>
-									<p class="success">Your Item was registered successfully!!! </p>
-									{{#data.lost_item.match_found}}
-									{{! <p class="success"> Looks Like a match was found, Admin will contact you to confirm ownership!</p> }}
-									{{/data.lost_item.match_found}}
+									<p class="success">Your Item was registered successfully. You will be contacted when a match is found. </p>
 
-									{{^data.lost_item.match_found}}
-									{{! <p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p> }}
-									{{/data.lost_item.match_found}}
+									{{data.lost_item.image}}
 								</tr>
 							</thead>
 							<tbody>
@@ -58,7 +53,7 @@
 							<tfoot>
 								<tr class="align-center">
 									<td colspan="1">
-									<a href="/item/lost/{{data.lost_item._id}}" class="button special small align-center"> Find Match</a>
+									<a href="/item/lost/{{data.lost_item._id}}/delete" class="button special small align-center"> Delete Item</a>
 									</td>
 									<td class="actions">
 									<a href="/item/lost/{{data.lost_item._id}}/update" class="button special small align-center"> Update</a>

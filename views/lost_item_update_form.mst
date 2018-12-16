@@ -1,4 +1,4 @@
-{{>form_header}}
+{{>form_header1}}
 
 	<!-- Three -->
 			<section id="main" class="wrapper">
@@ -9,20 +9,20 @@
 						<p class="danger">{{msg}} </p>
 						{{/error}}
 					</header>
-					<form class ="centralize" action="#" method="post">	
+					<form class ="centralize" action="#" method="post" >	
 						<div class="field half first">
 							<label for="name">Item Name *</label>
-							<input name="name" id="name" type="text" placeholder="Name" value="{{data.found_item.name}}">
+							<input name="name" id="name" type="text" placeholder="Name" value="{{data.lost_item.name}}">
 						</div>
 						<div class="field half">
 							<label for="Brand">Item Brand</label>
-							<input name="brand" id="brand" type="text" placeholder="brand" value="{{data.found_item.brand}}">
+							<input name="brand" id="brand" type="text" placeholder="brand" value="{{data.lost_item.brand}}">
 						</div>
 
 						<div class="field half first">
 							<label for="category">Category *</label>
-							<select name= "category">
-								<option> -select- </option>
+							<select name= "category" value="{{data.lost_item.category}}">
+								<option value={{data.lost_item.category}}> {{data.lost_item.category}} </option>
 								<option value="Documents"> Documents (ID cards, Books ...)</option>
 								<option value="Household"> Household (Pressing Iron...) </option>
 								<option value="Electronic"> Electronic(Electronic devices)</option>
@@ -34,34 +34,32 @@
 						
 						<div class="field half">
 							<label for="color">Major Color</label>
-							<input type ="text" name="color" id="color" value="{{data.found_item.major_color}}"/>							
+							<input type ="text" name="color" id="color" value="{{data.lost_item.major_color}}"/>							
 						</div>
 
 						<div class="field half first">
-							<label for="size">Found Location</label>
-							<input type="text" name="location" id="location" autocomplete="true" value="{{data.found_item.location}}"/>							
+							<label for="size">Lost Location</label>
+							<input type="text" name="location" id="location" autocomplete="true" value="{{data.lost_item.location}}"/>							
 						</div>
 
 						<div class="field half">
 							<label for="size">Reporter's Phone No</label>
-							<input type="text" name="reporter" id="reporter" value="{{data.found_item.reporter}}"/>							
+							<input type="text" name="reporter" id="reporter" value="{{data.lost_item.reporter}}"/>							
 						</div>
 
 
 						<div class="field">
 							<label for="other_info"> Other Information</label>
-							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item">
-							</textarea>
+							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item">{{data.lost_item.other_info}}</textarea>
 						</div>
-						<div class="field">
+						<div class="field" >
 							<label for="name">Image</label>
-							<input name="image" id="image" type="file" placeholder="Click to select upload image">
+							<input enctype="multipart/form-data" name="image" id="image" type="file" placeholder="Click to select upload image" value="{{data.lost_item.image}}">
 						</div>
 						<div class="field">
 							<input type="submit" value="Submit" class="small smaller" />
 						</div>					
-					</form>										
+					</form>									
 				</div>
-			</section>
-        
-{{>form_footer}}
+			</section>        
+{{>form_footer1}}

@@ -1,0 +1,46 @@
+{{>form_header1}}
+
+	<!-- Three -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header>
+						<h5> Delete {{title}}</h5>
+						{{#error}}
+						<p class="danger">{{msg}} </p>
+						{{/error}}
+					</header>
+					<div class="table-wrapper">
+						<table>
+							<thead> 
+								<tr> 
+									<h4> Delete Item: {{data.lost_item.code}}</h4>
+									<p>{{data.lost_item.image}}</p>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Item Name</td>
+									<td>{{data.lost_item.name}}</td>
+								</tr>								
+								<tr>
+									<td>Status</td>
+									<td>{{data.lost_item.status}}</td>
+								</tr>								
+							</tbody>
+							<tfoot>
+								<tr class="align-center">
+									<td colspan="1">
+                                    <form action="#" method="POST">
+									<input type="submit" href="/item/lost/{{data.lost_item._id}}/delete" class="button special small align-center" value="Delete">
+									</td>
+									<td class="actions">
+									<input type="submit" href="/item/lost/{{data.lost_item._id}}" class="button special small align-center">
+									</form>
+                                    </td>
+								</tr>
+							</tfoot>
+						</table>							
+				</div>
+			</section>
+        
+{{>form_footer1}}

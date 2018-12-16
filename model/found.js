@@ -76,6 +76,10 @@ FoundSchema.virtual('url')
     .get(function(){
         return '/item/found/'+this._id;
     });
+FoundSchema.virtual('admin_url')
+    .get(function(){
+        return '/admin/found/'+this._id;
+    });
 FoundSchema.virtual('setDetail')
     .get(()=>{
         this.detail = this.major_color+" "+this.brand+" "+this.name

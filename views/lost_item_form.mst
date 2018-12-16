@@ -4,12 +4,12 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header>
-						<h3> {{title}} Item Form</h3>
+						<h5> {{title}} Item Form</h5>
 						{{#error}}
 						<p class="danger">{{msg}} </p>
 						{{/error}}
 					</header>
-					<form class ="centralize" action="#" method="post">	
+					<form class ="centralize" action="#" method="post" >	
 						<div class="field half first">
 							<label for="name">Item Name *</label>
 							<input name="name" id="name" type="text" placeholder="Name" value="{{data.lost_item.name}}">
@@ -21,7 +21,7 @@
 
 						<div class="field half first">
 							<label for="category">Category *</label>
-							<select name= "category" value="{{data.lost_item.category}}">
+							<select name= "category">
 								<option> -select- </option>
 								<option value="Documents"> Documents (ID cards, Books ...)</option>
 								<option value="Household"> Household (Pressing Iron...) </option>
@@ -50,13 +50,11 @@
 
 						<div class="field">
 							<label for="other_info"> Other Information</label>
-							<textarea name="other_info" id="other_info"rows="6" type="textarea" placeholder="Enter other detail of item">
-								{{data.lost_item.other_info}}							
-							</textarea>
+							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item"></textarea>
 						</div>
-						<div class="field">
+						<div class="field" >
 							<label for="name">Image</label>
-							<input name="image" id="image" type="file" placeholder="Click to select upload image" value="{{data.lost_item.image}}">
+							<input enctype="multipart/form-data" name="image" id="image" type="file" placeholder="Click to select upload image" value="{{data.lost_item.image}}">
 						</div>
 						<div class="field">
 							<input type="submit" value="Submit" class="small smaller" />

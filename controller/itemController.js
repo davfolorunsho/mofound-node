@@ -1,6 +1,9 @@
 var async = require('async');
+var fs = require('fs');
 // var crypto = require('crypto');
 var stringSimilarity = require('string-similarity');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
@@ -65,6 +68,11 @@ function checkForMatch(lost, item_array){
             }  
         }        
         return match;
+}
+
+function getImage(image) {
+    a.img.data = fs.readFileSync(imgPath);
+    a.img.contentType = 'image/png';
 }
 
 // Display list of all items.
@@ -228,10 +236,10 @@ exports.found_item_create_get = function(req, res, next) {
 // Handle foundItem create on POST.
 
 exports.found_item_create_post = [
-    body('name', "Item's name is required").isLength({ min: 1 }).trim(),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!'),
+    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number'),
     body('location').optional(),
-    body('category').isString('select').withMessage('Select a category for item'),
+    // body('category').equals(!'-select-').withMessage('Select a category for item'),
 
     sanitizeBody('*').escape(),
     
@@ -329,98 +337,6 @@ exports.found_item_create_post = [
     }
 ]
 
-// exports.found_item_create_post = [
-//     body('name', "Item's name is required").isLength({ min: 1 }).trim(),
-//     body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!'),
-//     body('location').optional(),
-//     sanitizeBody('*').escape(),
-    
-//     // Process the request after validation and sanitization
-//     (req, res, next) =>{
-//         // Extact the validation errors
-//         const errors = validationResult(req);
-        
-//         var found_item = new FoundItem({
-//             name: req.body.name,
-//             category: req.body.category,
-//             brand: req.body.brand,
-//             major_color: req.body.color,
-//             size_group: req.body.size,
-//             other_info: req.body.other_info,
-//             image: req.body.image,
-//             reporter: req.body.reporter,
-//             status: req.body.status,
-//             code: generateCode()
-//         });
-//         // Make the detail out
-//         found_item.makeDetail();
-
-//         if (!errors.isEmpty()) {
-//             // There are errors. Render the form again with sanitized values/error messages.
-//             console.log('Error occured: '+errors.array());
-//             return res.render('found_item_form', 
-//             { 
-//                 title: 'Found', 
-//                 found_item: found_item, 
-//                 error: errors.array()
-//             });
-//         }else {
-//             // Data from form is valid. Save the item
-//             // Perform string similarity on the new entry to update matchfound before saving
-//             console.log('Looking for match ...');
-//             // Run a program to get all list of found item
-//             async.parallel({
-//                 lost_items: function(callback){
-//                     LostItem.find({}, callback);
-//                 }
-
-//             }, function(err, response){
-//                 if (err){
-//                     console.log('Error fetching list of lost item ');
-//                     return; 
-//                 }
-//                 var item_matched = checkForMatch(found_item.detail, response.lost_items);
-    
-//                 // if item is matched
-//                 if (item_matched != null){
-//                     // Item is matched, Notify the user/admin
-//                     found_item.match_found = true;
-//                     // TODO ---- Update the match found value of the match item
-                    
-//                     item_matched.match_found = true;
-//                     console.log("Set found item matchfound to true: "+found_item.match_found);
-//                     console.log("Set lost item matchfound to true: "+item_matched.match_found);
-                    
-//                     // Save the found item
-//                     found_item.save(function (err){
-//                         console.log("SAVE --- Match was found: ");
-//                         if (err) {return next(err);}
-//                         // successful -redirect to new item detail
-//                         res.redirect(found_item.url);
-//                     });
-
-//                 }else{
-//                     // Save the found item
-//                     found_item.save(function (err){
-//                         console.log("SAVE --- Match is not found: ");
-//                         if (err) {return next(err);}
-//                         // successful -redirect to new item detail
-//                         res.redirect(found_item.url);
-//                     });
-//                     return;
-//                 }
-//                 // Todo comment out if successful
-//                 // console.log(response.found_items[response.found_items.length-1]);                
-//             });
-//         }
-//     }
-// ] 
-// {
-//     res.send('NOT IMPLEMENTED: FoundItem create POST');
-// };
-
-
-
 // Display lostItem create form on GET.
 exports.lost_item_create_get = function(req, res) {
     
@@ -452,10 +368,10 @@ exports.lost_item_create_get = function(req, res) {
 
 // Handle lostItem create on POST.
 exports.lost_item_create_post = [
-    body('name', "Item's name is required").isLength({ min: 1 }).trim(),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!'),
-    body('location').optional(),
-    body('category').isString('select').withMessage('Select a category for item'),
+    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number'),
+    body('location').isAlphanumeric().withMessage("Location should be alpa-numeric"),
+    // body('category').equals('-select-').withMessage('Select a category for item'),
 
     sanitizeBody('*').escape(),
     
@@ -483,7 +399,7 @@ exports.lost_item_create_post = [
             major_color: req.body.color,
             size_group: req.body.size,
             other_info: req.body.other_info,
-            image: req.body.image,
+            image: req.file,
             location: req.body.location,
             reporter: req.body.reporter,
             status: req.body.status,    
@@ -583,7 +499,7 @@ exports.found_item_update_get = function(req, res) {
         if (err){
             console.log("There was an error fetching this");
         }
-        res.render('found_item_form', {
+        res.render('found_item_update_form', {
             title: "Found",
             company: "MoFound NG",             
             error: err,
@@ -602,7 +518,7 @@ exports.lost_item_update_get = function(req, res) {
         if (err){
             console.log("There was an error fetching this");
         }
-        res.render('lost_item_form', {
+        res.render('lost_item_update_form', {
             title: "Lost",
             company: "MoFound NG",             
             error: err,
@@ -614,10 +530,10 @@ exports.lost_item_update_get = function(req, res) {
 
 // Handle foundItem update on POST.
 exports.found_item_update_post = [
-    body('name', "Item's name is required").isLength({ min: 1 }).trim().isAlpha().withMessage('Name must be alphabet letters.'),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!'),
+    body('name', "Item's name is required").isLength({ min: 1 }).trim(),
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number'),
     body('location').optional(),
-    body('category').isString('select').withMessage('Select a category for item'),
+    // body('category').equals('-select-').withMessage('Select a category for item'),
 
     sanitizeBody('*').escape(),
 
@@ -640,7 +556,7 @@ exports.found_item_update_post = [
 
         if (!errors.isEmpty()){
             // error reload the page
-            res.render('found_item_form', {
+            res.render('found_item_update_form', {
                 title: "Found",
                 company: "MoFound NG",             
                 error: errors.array(),
@@ -661,10 +577,10 @@ exports.found_item_update_post = [
 
 // Handle lostItem update on POST.
 exports.lost_item_update_post = [
-    body('name', "Item's name is required").isLength({ min: 1 }).trim().isAlpha().withMessage('Name must be alphabet letters.'),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!'),
+    body('name', "Item's name is required").isLength({ min: 1 }).trim(),
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number'),
     body('location').optional(),
-    body('category').isString('select').withMessage('Select a category for item'),
+    // body('category').equals('-select-').withMessage('Select a category for item'),
 
     sanitizeBody('*').escape(),
 
@@ -687,7 +603,7 @@ exports.lost_item_update_post = [
 
         if (!errors.isEmpty()){
             // error reload the page
-            res.render('lost_item_form', {
+            res.render('lost_item_update_form', {
                 title: "Lost",
                 company: "MoFound NG",             
                 error: errors.array(),
@@ -710,22 +626,56 @@ exports.lost_item_update_post = [
 
 // Display foundItem delete form on GET.
 exports.found_item_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: FoundItem delete GET '+req.params.id);
+    async.parallel({
+        found_item: function(callback) {
+            FoundItem.findById(req.params.id).exec(callback)
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.found_item==null) { // No results.
+            res.redirect('/item/found/'+req.params.id);
+        }
+        // Successful, so render.
+        res.render('found_delete', { title: results.found_item.name, data: results});
+    });
+    // res.send('NOT IMPLEMENTED: FoundItem delete GET '+req.params.id);
 };
 
 // Display lostItem delete form on GET.
 exports.lost_item_delete_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: lostItem delete GET '+req.params.id);
+    async.parallel({
+        lost_item: function(callback) {
+            LostItem.findById(req.params.id).exec(callback)
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.lost_item==null) { // No results.
+            res.redirect('/item/lost/'+req.params.id);
+        }
+        // Successful, so render.
+        res.render('lost_delete', { title: results.lost_item.name, data: results});
+    });
 };
 
 // Handle foundItem delete on POST.
-exports.found_item_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: foundItem delete POST');
+exports.found_item_delete_post = function(req, res, next) {
+    // Success
+    FoundItem.findByIdAndRemove(req.params.id, function(err) {
+        if (err) { return next(err); }
+        // Success - go to author list
+        res.redirect('/');
+    });
+    // res.send('NOT IMPLEMENTED: foundItem delete POST');
 };
 
 // Handle lostItem delete on POST.
 exports.lost_item_delete_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: LostItem delete POST');
+    // Success
+    LostItem.findByIdAndRemove(req.params.id, function(err) {
+        if (err) { return next(err); }
+        // Success - go to author list
+        res.redirect('/');
+    });
 };
 
 

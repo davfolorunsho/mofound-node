@@ -1,4 +1,4 @@
-{{>form_header}}
+{{>form_header1}}
 
 	<!-- Three -->
 			<section id="main" class="wrapper">
@@ -21,8 +21,8 @@
 
 						<div class="field half first">
 							<label for="category">Category *</label>
-							<select name= "category">
-								<option> -select- </option>
+							<select name= "category" value="{{data.found_item.category}}">
+								<option value={{data.found_item.category}}> {{data.found_item.category}} </option>
 								<option value="Documents"> Documents (ID cards, Books ...)</option>
 								<option value="Household"> Household (Pressing Iron...) </option>
 								<option value="Electronic"> Electronic(Electronic devices)</option>
@@ -50,8 +50,7 @@
 
 						<div class="field">
 							<label for="other_info"> Other Information</label>
-							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item">
-							</textarea>
+							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item">{{data.found_item.other_info}}</textarea>
 						</div>
 						<div class="field">
 							<label for="name">Image</label>
@@ -64,4 +63,4 @@
 				</div>
 			</section>
         
-{{>form_footer}}
+{{>form_footer1}}
