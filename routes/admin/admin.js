@@ -30,7 +30,7 @@ router.post('/found/:id/update', adminController.found_item_update_post);
 router.post('/lost/:id/update', adminController.lost_item_update_post);
 
 // Delete a user detail
-router.get('found/:id/delete', adminController.found_item_delete_get);
+router.get('/found/:id/delete', adminController.found_item_delete_get);
 router.get('/lost/:id/delete', adminController.lost_item_delete_get);
 
 router.post('/found/:id/delete', adminController.found_item_delete_post);

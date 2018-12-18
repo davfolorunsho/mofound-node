@@ -77,6 +77,10 @@ LostSchema.virtual('url')
     .get(function(){
         return '/item/lost/'+this._id;
     });
+LostSchema.virtual('admin_url')
+    .get(function(){
+        return '/admin/lost/'+this._id;
+    });
 LostSchema.virtual('genDetail')
     .get(function(){
         this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category.";

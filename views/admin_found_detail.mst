@@ -63,6 +63,7 @@
                   </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
+									<a href="/admin/found/{{data.found_item._id}}/delete" class="btn btn-sm btn-default btn-flat pull-left">Delete Item</a>
                   <a href="/admin/found/{{data.found_item._id}}/update" class="btn btn-sm btn-default btn-flat pull-right">Edit Item</a>
                 </div><!-- /.box-footer -->
               </div><!-- /.box -->
