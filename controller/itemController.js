@@ -567,6 +567,8 @@ exports.found_item_update_post = [
                     console.error('Error updating');                  
                     return next(err); 
                 }
+                // After updating check for match
+                
                 // Successful - redirect to the detail
                 res.redirect(the_item.url);
             });

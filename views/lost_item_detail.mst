@@ -3,16 +3,15 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2> Reported {{title}} </h2>
+						<h2> Lost {{title}} </h2>
 					</header>
 					<div class="table-wrapper">
 						<table>
 							<thead> 
 								<tr> 
-									<h4>Item Code: {{data.lost_item.code}}</h4>
-									<p> You can copy this code to follow up on the item. </p>
+									<h3>Item Code: {{data.lost_item.code}}</h3>									
 									<p class="success">Your Item was registered successfully. You will be contacted when a match is found. </p>
-
+									<p><span class="success"> You can copy this code to follow up on the item. </span> {{data.lost_item.code}} </p>
 									{{data.lost_item.image}}
 								</tr>
 							</thead>
@@ -51,12 +50,39 @@
 								</tr>								
 							</tbody>
 							<tfoot>
-								<tr class="align-center">
+								<tr class="actions">
 									<td colspan="1">
-									<a href="/item/lost/{{data.lost_item._id}}/delete" class="button special small align-center"> Delete Item</a>
+									<div>
+										<a href="/item/lost/{{data.lost_item._id}}/delete" class="button special small align-left"> Delete</a>
+									</div>
 									</td>
 									<td class="actions">
-									<a href="/item/lost/{{data.lost_item._id}}/update" class="button special small align-center"> Update</a>
+									<div>
+										<a href="/item/lost/{{data.lost_item._id}}/update" class="button special small align-right"> Update</a>
+									</div>
+									</td>
+								</tr>
+								<br> <br>
+								
+								<tr class="actions image">									
+									<td colspan="3" class="line inline">
+										<h4> Share on: </h4>
+									
+									<td>
+										<div>
+											<a href="#" class=""> <img src="../../images/facebook.jpg" alt="facebook"/>facebook</a>
+										</div>
+									</td>
+									<td>
+										<div>
+											<a href="#" class=""> <img src="../../images/twitter.jpg" alt="twitter"/>twitter</a>
+										</div>
+									</td>
+									<td>
+										<div>
+											<a href="#" class=""> <img src="../../images/whatsapp.png" alt="whatsapp"/>whatsapp</a>
+										</div>
+									</td>
 									</td>
 								</tr>
 							</tfoot>

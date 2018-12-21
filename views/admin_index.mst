@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="fa fa-plus"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Lost Items</span>
                   <span class="info-box-number">{{data.lost_item_count}}</span>
@@ -18,29 +18,29 @@
             </div><!-- /.col -->
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+                <span class="info-box-icon bg-red"><i class="fa fa-arrows"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Found Items</span>
                   <span class="info-box-number">{{data.found_item_count}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
-
             <!-- fix for small devices only -->
             <div class="clearfix visible-sm-block"></div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Matched</span>
                   <span class="info-box-number">{{data.matched_found_item}}</span>
                 </div><!-- /.info-box-content -->
               </div><!-- /.info-box -->
             </div><!-- /.col -->
+
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                <span class="info-box-icon bg-yellow"><i class="fa fa-suitcase"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Returned</span>
                   <span class="info-box-number">{{data.returned_item_count}}</span>

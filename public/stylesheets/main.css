@@ -56,6 +56,15 @@
 		text-align: center;
 		margin-top: -10em;
 	}
+	.danger{
+		color: red;
+	}
+	.success{
+		color: green;
+	}
+	.inline {
+		display: inline;
+	}
 
 /* Box Model */
 
@@ -1705,7 +1714,7 @@
 	}
 
 	p {
-		margin: 0 0 2em 0;
+		margin: 0 0 0.5em 0;
 	}
 		p.danger{
 			color: red;
@@ -1718,7 +1727,7 @@
 		color: #555;
 		font-weight: 400;
 		line-height: 1.5;
-		margin: 0 0 1em 0;
+		margin: 0 0 0.5em 0;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1814,6 +1823,8 @@
 
 	.align-center {
 		text-align: center;
+		align-content: center;
+		margin: auto;
 	}
 
 	.align-right {
@@ -2029,6 +2040,10 @@
 
 				form .field.half.first {
 					margin-right: 0;
+				}
+				div.form-button{
+					width: 90px; 
+					margin: auto;
 				}
 
 		}
@@ -2293,6 +2308,9 @@
 		display: inline-block;
 		position: relative;
 	}
+		.image .line{
+			display: block;
+		}
 
 		.image img {
 			border-radius: 0;
@@ -2532,6 +2550,10 @@
 		width: 100%;
 	}
 
+		table.clean-side {
+			margin: auto;
+		}
+
 		table tbody tr {
 			border: solid 1px #dbdbdb;
 			border-left: 0;
@@ -2570,6 +2592,7 @@
 				border: solid 1px #dbdbdb;
 				border-left-width: 0;
 				border-top-width: 0;
+				
 			}
 
 				table.alt tbody tr td:first-child {
@@ -3047,7 +3070,7 @@
 
 		#banner p {
 			font-size: 1em;
-			color: rgba(255, 255, 255, 0.55);
+			color: #555;
 			margin-bottom: 1.75em;
 		}
 
