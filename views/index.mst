@@ -81,7 +81,7 @@
 							<footer>
 								{{! <h3>Report Lost<br/> Login and Report</h3> }}
 								<br>
-								<p>You can report your misssing item here, but<br/>you will need login details to fill this form <br /> or register if you don't have it yet.</p>
+								<p>You can report your misssing item here, <br>click on the Enter Lost Item button and <br>enter the details of the item.</p>
 							</footer>
 						</article>
 					</div>

@@ -1718,6 +1718,7 @@
 
 	p {
 		margin: 0 0 0.5em 0;
+		color: black;
 	}
 		p.danger{
 			color: red;
@@ -2576,7 +2577,7 @@
 		}
 
 		table th {
-			color: #555;
+			color: rgb(5, 5, 5);
 			font-size: 0.9em;
 			font-weight: 600;
 			padding: 0 0.75em 0.75em 0.75em;
@@ -2598,8 +2599,7 @@
 			table.alt tbody tr td {
 				border: solid 1px #dbdbdb;
 				border-left-width: 0;
-				border-top-width: 0;
-				
+				border-top-width: 0;				
 			}
 
 				table.alt tbody tr td:first-child {

@@ -522,7 +522,7 @@ exports.lost_item_create_get = function(req, res) {
 exports.lost_item_create_post = [
     body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
     body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number'),
-    body('location').isAlphanumeric().withMessage("Location should be alpa-numeric"),
+    body('location').optional(),
     // body('category').equals('-select-').withMessage('Select a category for item'),
 
     sanitizeBody('*').escape(),
