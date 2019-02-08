@@ -65,6 +65,9 @@
 	.inline {
 		display: inline;
 	}
+	.text-white {
+		color: white;
+	}
 
 /* Box Model */
 
