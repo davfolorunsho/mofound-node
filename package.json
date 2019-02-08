@@ -8,6 +8,7 @@
     "test": "nodemon ./unit"
   },
   "dependencies": {
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.5",
@@ -18,7 +19,9 @@
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
+    "fb": "^2.0.0",
     "flash": "^1.1.0",
+    "geo-nearby": "^2.0.1",
     "http-errors": "~1.6.2",
     "mongoose": "^5.3.7",
     "morgan": "~1.9.0",
@@ -27,6 +30,9 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "randomatic": "^3.1.1",
+    "redis": "^2.8.0",
+    "share-facebook": "0.0.1",
+    "share-twitter": "0.0.1",
     "string-similarity": "^2.0.0"
   },
   "devDependencies": {

@@ -1724,10 +1724,11 @@
 		}
 
 	h1, h2, h3, h4, h5, h6 {
-		color: #555;
+		color: rgb(0, 0, 0);
 		font-weight: 400;
 		line-height: 1.5;
 		margin: 0 0 0.5em 0;
+		font-family: FontAwesome;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1920,6 +1921,9 @@
 		}
 	header.site{
 		height: 30%;
+	}
+	header h3.form-header{
+		color: rgb(5, 68, 10);
 	}
 
 	header p {
@@ -2814,7 +2818,7 @@
 		height: 3.25em;
 		left: 0;
 		line-height: 3.25em;
-		position: absolute;
+		position: fixed;
 		text-align: right;
 		top: 2em;
 		width: 100%;
@@ -2830,6 +2834,7 @@
 		#header .logo {
 			color: #ffffff;
 			display: inline-block;
+			font-family: "Pacifico", cursive;
 			font-weight: 400;
 			height: inherit;
 			left: 0;
@@ -2838,12 +2843,17 @@
 			padding: 0;
 			position: absolute;
 			top: 0;
-			font-size: 1em;
+			font-size: 2.5em;
+			letter-spacing: 2px;
+			margin-top: -5px;
+			text-decoration: none;
+			display: inline-block;
 		}
 
 			#header .logo strong {
 				color: #ffffff;
 				font-weight: 600;
+				font-family: "Pacifico", cursive;
 			}
 
 		#header a {
@@ -2856,6 +2866,7 @@
 			color: inherit;
 			text-decoration: none;
 			font-size: 1em;
+			font-family: "Pacifico", cursive;
 		}
 
 			#header a:hover {

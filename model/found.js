@@ -57,6 +57,10 @@ var FoundSchema = new Schema(
         match_found: {
             type: Boolean,
             default: false
+        },
+        matched_item: {
+            type: Schema.Types.ObjectId, 
+            ref: "Lost"
         }
     }
 );
@@ -80,9 +84,13 @@ FoundSchema.virtual('admin_url')
     .get(function(){
         return '/admin/found/'+this._id;
     });
+FoundSchema.virtual('getMatchedId')
+    .get(function(){
+        return this.matched_item[0]._id;
+    });
 FoundSchema.virtual('setDetail')
     .get(()=>{
-        this.detail = this.major_color+" "+this.brand+" "+this.name
+        return this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category";
     })
 FoundSchema.virtual('generateCode')
     .get(function(){

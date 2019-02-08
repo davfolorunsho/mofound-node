@@ -3,23 +3,17 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2> Found {{title}} </h2>
+						<h3> Found {{title}} </h3>
 					</header>
 					<div class="table-wrapper">
 						<table>
 							<thead> 
 								<tr> 
-									<h3>Item Code: {{data.found_item.code}}</h4>
-									<p class="success">Your Item was registered successfully!!! </p>
-									<p><span class="success"> You can copy this code to follow up on the item: </span> {{data.found_item.code}} </p>
+									<h3>Item Code: {{data.found_item.code}}</h3>
+									<p class="success">Thanks, the item was registered successfully, you can follow up on the item using the link above!!!</p>
+									<p><span class="success">If the code doesn't load this page, that means the match has been found and returned to the owner.</span></p>
+									<h4>Report at this nearest locations to you: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>									
 
-									{{#data.found_item.match_found}}
-									{{! <p class="success"> Looks Like a match was found.</p> }}
-									{{/data.found_item.match_found}}
-									
-									{{^data.found_item.match_found}}
-									{{! <p class="danger"> Looks Like a match was not found, Admin will contact you when a match is found!</p> }}
-									{{/data.found_item.match_found}}
 								</tr>
 							</thead>
 							<tbody>
@@ -82,7 +76,7 @@
 									
 									<td>
 										<div>
-											<a href="#" class=""> <img src="../../images/facebook.jpg" alt="facebook"/>facebook</a>
+											<a href="{{shareurl}}" class=""> <img src="../../images/facebook.jpg" alt="facebook"/>facebook</a>
 										</div>
 									</td>
 									<td>

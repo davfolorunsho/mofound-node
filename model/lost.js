@@ -59,13 +59,21 @@ var LostSchema = new Schema(
         },
         receiver_code: {
             type: String,
-        }
+        },
+        matched_item: {
+            type: Schema.Types.ObjectId, 
+            ref: "Found"
+            }
     }
 );
 //--- Virtual methods
 LostSchema.methods.makeDetail = function(){
     this.detail = this.major_color+" "+this.brand+" "+this.name+" and "+this.other_info+" in "+this.category+" category.";
     return;
+}
+// Get matched item id
+LostSchema.methods.getMatchedId = function(){
+    return matched_item._id;
 }
 
 // Virtual for user name

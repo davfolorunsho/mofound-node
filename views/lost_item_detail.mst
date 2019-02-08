@@ -3,16 +3,17 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2> Lost {{title}} </h2>
+						<h3> Lost {{title}} </h3>
 					</header>
 					<div class="table-wrapper">
 						<table>
 							<thead> 
 								<tr> 
 									<h3>Item Code: {{data.lost_item.code}}</h3>									
-									<p class="success">Your Item was registered successfully. You will be contacted when a match is found. </p>
-									<p><span class="success"> You can copy this code to follow up on the item. </span> {{data.lost_item.code}} </p>
-									{{data.lost_item.image}}
+									<p class="success">Your Item was registered successfully. You will be contacted when a match is found. Copy the code above to follow up on your item. </p>
+									<p><span class="success">If the code doesn't load this page, that means the match has been found and returned to the owner.</span></p>
+									<h4>Report at this nearest locations to you: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>
+									<div>{{data.lost_item.image}}</div>
 								</tr>
 							</thead>
 							<tbody>

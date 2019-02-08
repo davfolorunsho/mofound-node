@@ -1,3 +1,36 @@
+
+<-------------------------------------->
+Algorithm for updating item
+
+1. Get item details to update for item a.
+2. Run a check for match
+3. For match found, update neccessary details
+4. For match not found, 
+4a. Check for previous match
+4b. If match_found is true for item,
+	remove the item_matched to it and
+	update neccessary details for the match.
+4c. else i.e no match found. continue
+5. update the item
+6. Return
+
+1. Get item details to update
+2. Check for previous match
+3. If previous match is present
+4. 
+3. Check for match, 
+4. If match
+
+For Deleting item
+1. Get item to delete
+2. Check if item has match(es)
+3. For match found, update neccessary details.
+4. For match not found, go to next
+5. delete the item.
+
+
+
+< ------------------------------------ >
 <section id="center-form" class="center container">
 				<h2> {{title}} Form</h2>
 				<p> {{error}} </p>

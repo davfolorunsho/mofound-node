@@ -6,26 +6,24 @@
 					<header>
 						<h1>Welcome to Mofound</h1>
 					</header>
-
 					<div class="flex flex-3 flex-patch">
-
 						<div>
 							<span class="icon fa-file-text"></span>
 							<h3>You Report</h3>
-							<p>You report a missing or found item</p>
+							<h5>You report a missing or found item</h5>
 						</div>
 
 						<div>
 							<span class="icon fa-steam"></span>
 							<h3>System Matches</h3>
-							<p>The system helps to match lost </p>
-                            <p>item to found ones</p>
+							<h5>The system helps to match lost </h5>
+                            <h5>item to found ones</h5>
 						</div>
 
 						<div>
 							<span class="icon fa-check-square-o"></span>
 							<h3>We Return</h3>
-							<p>We help owners access their items back</p>
+							<h5>We help owners access their items back</h5>
 						</div>
 
 					</div>

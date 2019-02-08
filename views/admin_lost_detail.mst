@@ -53,6 +53,15 @@
 								<tr>
 									<td>Status</td>
 									<td>{{data.lost_item.status}}</td>
+								</tr>
+								<tr>
+									<td>Matched</td>
+									{{# data.lost_item.match_found}}
+									<td>Yes</td>
+									{{/ data.lost_item.match_found}}
+									{{^ data.lost_item.match_found}}
+									<td>No</td>
+									{{/ data.lost_item.match_found}}
 								</tr>	
 								<tr>
 									<td>Reporter</td>

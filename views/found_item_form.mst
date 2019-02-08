@@ -4,7 +4,7 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header>
-						<h5> {{title}} Item Form</h5>
+						<h3 class="form-header"> {{title}} Item Form</h3>
 						{{#error}}
 						<p class="danger">{{msg}} </p>
 						{{/error}}
@@ -15,7 +15,7 @@
 							<input name="name" id="name" type="text" placeholder="Name" value="{{data.found_item.name}}">
 						</div>
 						<div class="field half">
-							<label for="Brand">Item Brand</label>
+							<label for="Brand">Item Brand(If not sure, use "Unknown")</label>
 							<input name="brand" id="brand" type="text" placeholder="brand" value="{{data.found_item.brand}}">
 						</div>
 
@@ -50,8 +50,7 @@
 
 						<div class="field">
 							<label for="other_info"> Other Information</label>
-							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item">
-							</textarea>
+							<textarea name="other_info" id="other_info"rows="3" type="textarea" placeholder="Enter other detail of item"></textarea>
 						</div>
 						<div class="field">
 							<label for="name">Image</label>
