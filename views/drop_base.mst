@@ -32,11 +32,9 @@
         <!-- Logo -->
         <a href="/admin" class="logo"><b>Admin-</b>Drop Point</a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top">
           <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
+          
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -137,102 +135,7 @@
       </header>
 
       <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image" />
-            </div>
-            <div class="pull-left info">
-              <p>{{user.username}}</p>
-
-              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-          </div>
-          <!-- search form -->
-          <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-              <input type="text" name="q" class="form-control" placeholder="Search..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-          </form>
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            
-            {{! <li class="treeview">
-              <a href="#">
-                <i class="fa fa-files-o"></i>
-                <span>Layout Options</span>
-                <span class="label label-primary pull-right">4</span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-              </ul>
-            </li> }}
       
-            {{! Items Section }}
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>Items</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="/admin/founds"><i class="fa fa-circle-o"></i> Found Items</a></li>
-                <li><a href="/admin/losts"><i class="fa fa-circle-o"></i> Lost Items</a></li>
-                <li><a href="/admin/users"><i class="fa fa-circle-o"></i> Users</a></li>
-              </ul>
-            </li>
-            {{! Security Post Section }}
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>Admin & Posts</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="/admin/admins/all"><i class="fa fa-circle-o"></i> All Admin</a></li>
-                <li><a href="/admin/register"><i class="fa fa-circle-o"></i> New Admin</a></li>
-                <li><a href="/admin/posts/all"><i class="fa fa-circle-o"></i> All Post</a></li>                
-                <li><a href="/admin/post/new"><i class="fa fa-circle-o"></i> New Post</a></li>
-              </ul>
-            </li>
-            {{! Report Section }}
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-edit"></i> <span>Reports</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> All Reports</a></li>
-                <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Delete Reports</a></li>
-                <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-              </ul>
-            </li>
-            {{! Messages }}
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-table"></i> <span>Send Messages</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Notify Users</a></li>
-                <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> View Notifications</a></li>
-              </ul>
-            </li>
-          </ul>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
 
       <!-- Right side column. Contains the navbar and content of the page -->
       <div class="content-wrapper">

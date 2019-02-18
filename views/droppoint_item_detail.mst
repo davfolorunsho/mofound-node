@@ -1,4 +1,4 @@
-{{>admin_base_4}}
+{{>drop_base5}}
 
             <div class="row">
             <div class="col-md-8">
@@ -16,64 +16,64 @@
                     <table class="table no-margin">
                       <thead>
                         <tr> 
-									<h3>Item Code: {{data.lost_item.code}}</h3>
+									<h3>Item Code: {{data.found_item.code}}</h3>
 									<p class="alert alert-success">Your Item was registered successfully!!! </p>
 								</tr>
 							</thead>
 							<tbody>
-								{{# data.lost_item.image}}
+								{{# data.found_item.image}}
 									<tr>
-									<td>{{data.lost_item.image}}</td>
+									<td>{{data.found_item.image}}</td>
 									</tr>
-								{{/ data.lost_item.image}}
+								{{/ data.found_item.image}}
 								<tr>
 									<td>Item Name</td>
-									<td>{{data.lost_item.name}}</td>
+									<td>{{data.found_item.name}}</td>
 								</tr>
 								<tr>
 									<td>Item Category</td>
-									<td>{{data.lost_item.category}}</td>
+									<td>{{data.found_item.category}}</td>
 								</tr>	
 								<tr>
 									<td>Item Brand</td>
-									<td>{{data.lost_item.brand}}</td>
+									<td>{{data.found_item.brand}}</td>
 								</tr>	
 								<tr>
 									<td>Major Color</td>
-									<td>{{data.lost_item.major_color}}</td>
+									<td>{{data.found_item.major_color}}</td>
 								</tr>	
 								<tr>
-									<td>Lost Location</td>
-									<td>{{data.lost_item.location}}</td>
+									<td>found Location</td>
+									<td>{{data.found_item.location}}</td>
 								</tr>	
 								<tr>
 									<td>Generated Detail</td>
-									<td>{{data.lost_item.detail}}</td>
+									<td>{{data.found_item.detail}}</td>
 								</tr>	
 								<tr>
 									<td>Status</td>
-									<td>{{data.lost_item.status}}</td>
+									<td>{{data.found_item.status}}</td>
 								</tr>
 								<tr>
 									<td>Matched</td>
-									{{# data.lost_item.match_found}}
+									{{# data.found_item.match_found}}
 									<td>Yes</td>
-									{{/ data.lost_item.match_found}}
-									{{^ data.lost_item.match_found}}
+									{{/ data.found_item.match_found}}
+									{{^ data.found_item.match_found}}
 									<td>No</td>
-									{{/ data.lost_item.match_found}}
+									{{/ data.found_item.match_found}}
 								</tr>	
 								<tr>
 									<td>Reporter</td>
-									<td>{{data.lost_item.reporter}}</td>
+									<td>{{data.found_item.reporter}}</td>
 								</tr>						
 							</tbody>
                     </table>
                   </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                  <a href="/admin/lost/{{data.lost_item._id}}/delete" class="btn btn-sm btn-default btn-flat pull-left">Delete Item</a>
-                  <a href="/admin/lost/{{data.lost_item._id}}/update" class="btn btn-sm btn-default btn-flat pull-right">Edit Item</a>
+                  <a href="/admin/post/item/{{data.found_item._id}}/delete" class="btn btn-sm btn-default btn-flat pull-left">Delete Item</a>
+                  <a href="/admin/post/item/{{data.found_item._id}}/update" class="btn btn-sm btn-default btn-flat pull-right">Update Item</a>
                 </div><!-- /.box-footer -->
               </div><!-- /.box -->
             </div><!-- /.col -->

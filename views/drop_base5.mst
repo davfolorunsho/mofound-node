@@ -2,22 +2,22 @@
     <title>{{title}} Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.2 -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Font Awesome Icons -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
-    <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../plugins/morris/morris.css" rel="stylesheet" type="text/css" />
     <!-- jvectormap -->
-    <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
     <!-- Daterange picker -->
-    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="stylesheets/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/AdminLTE.min.css" rel="stylesheet" type="text/css" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
-    <link href="stylesheets/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="/admin" class="logo"><b>Admin-</b>Drop Point</a>
+        <a href="/admin" class="logo"><b>Admin</b>Section</a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
           <!-- Sidebar toggle button-->
@@ -55,7 +55,7 @@
                       <li><!-- start message -->
                         <a href="#">
                           <div class="pull-left">
-                            <img src="images/logo_resourc/favicon.png" class="img-circle" alt="User Ima"/>
+                            <img src="../../../images/logo_resourc/favicon.png" class="img-circle" alt="User Ima"/>
                           </div>
                           <h4>
                             {{title}}
@@ -99,13 +99,13 @@
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="images/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                  <img src="../../../images/user2-160x160.jpg" class="user-image" alt="User Image"/>
                   <span class="hidden-xs">{{user.name}}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <!-- User image -->
                   <li class="user-header">
-                    <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                    <img src="../../../images/user2-160x160.jpg" class="img-circle" alt="User Image" />
                     <p>
                       {{user.name}} - Admin
                       <small>---</small>
@@ -114,7 +114,7 @@
                   <!-- Menu Body -->
                   <li class="user-body">
                     <div class="col-xs-8 text-center">
-                      <a href="#">{{user.type}} Admin</a>
+                      <a href="#">Tech Admin{{user.type}}</a>
                     </div>
                     <div class="col-xs-4 text-center">
                       <a href="#">Sales</a>
@@ -143,10 +143,10 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="images/user2-160x160.jpg" class="img-circle" alt="User Image" />
+              <img src="../../../images/user2-160x160.jpg" class="img-circle" alt="User Image" />
             </div>
             <div class="pull-left info">
-              <p>{{user.username}}</p>
+              <p>Ndu Sunday</p>
 
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
@@ -196,14 +196,14 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-laptop"></i>
-                <span>Admin & Posts</span>
+                <span>Security Post</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/admin/admins/all"><i class="fa fa-circle-o"></i> All Admin</a></li>
-                <li><a href="/admin/register"><i class="fa fa-circle-o"></i> New Admin</a></li>
-                <li><a href="/admin/posts/all"><i class="fa fa-circle-o"></i> All Post</a></li>                
-                <li><a href="/admin/post/new"><i class="fa fa-circle-o"></i> New Post</a></li>
+                <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> All Posts</a></li>
+                <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> New Post</a></li>
+                <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Update Post</a></li>
+                <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Delete Post</a></li>
               </ul>
             </li>
             {{! Report Section }}

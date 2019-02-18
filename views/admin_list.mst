@@ -19,23 +19,21 @@
                     <table class="table no-margin">
                       <thead>
                         <tr>
-                          <th>Item code</th>
-                          <th>Item Name</th>
-                          <th>Status</th>
-                          <th>Matched</th>
-                          <th>reporter</th>
+                          <th>Admin Name</th>
+                          <th>Admin Type</th>
+                          <th>Status</th>                          
+                          <th>Date of Reg</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {{#data.lost_list}}
+                        {{#admins}}
                         <tr>
-                          <td><a href="/admin/lost/{{_id}}">{{code}}</a></td>
-                          <td>{{name}}</td>
-                          <td><span class="label label-success">{{status}}</span></td>   
-                          <td>{{match_found}}</td>
-                          <td>{{reporter}}</td>
+                          <td><a href="/admin/admin/{{_id}}">{{username}}</a></td>
+                          <td>{{type}}</td>
+                          <td><span class="label label-success">{{isVerified}}</span></td>           
+                          <td>{{date_of_reg}}</td>
                         </tr>                        
-                        {{/data.lost_list}}       
+                        {{/admins}}       
                       </tbody>
                     </table>
                   </div><!-- /.table-responsive -->
@@ -87,4 +85,4 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
-      {{> admin_footer2}}
+      {{> admin_footer4}}

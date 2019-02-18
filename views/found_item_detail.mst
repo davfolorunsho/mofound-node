@@ -12,7 +12,7 @@
 									<h3>Item Code: {{data.found_item.code}}</h3>
 									<p class="success">Thanks, the item was registered successfully, you can follow up on the item using the link above!!!</p>
 									<p><span class="success">If the code doesn't load this page, that means the match has been found and returned to the owner.</span></p>
-									<h4>Report at this nearest locations to you: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>									
+									<h4>Report at any of this locations: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>									
 
 								</tr>
 							</thead>

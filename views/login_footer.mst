@@ -1,0 +1,11 @@
+<!-- Footer -->
+
+		<!-- Scripts -->
+			<script src="../../javascripts/jquery.min.js"></script>
+			<script src="../../javascripts/skel.min.js"></script>
+			<script src="../../javascripts/util.js"></script>
+			<script src="../../javascripts/main.js"></script>
+			<script src="../../javascripts/myfile.js"></script>
+
+	</body>
+</html>

@@ -1,12 +1,7 @@
 var async = require('async');
 // var crypto = require('crypto');
 var fs = require('fs');
-// var crypto = require('crypto');
-var FoundItem = require('../model/found');
-var LostItem = require('../model/lost');
-var Item = require('../model/item');
 
-var User = require('../model/user');
 var randomize = require('randomatic');
 var stringSimilarity = require('string-similarity');
 
@@ -15,10 +10,10 @@ const { sanitizeBody } = require('express-validator/filter');
 const company = 'Mofound';
 
 // Models
-var Item = require('../model/item');
 var FoundItem = require('../model/found');
 var LostItem = require('../model/lost');
-var User = require('../model/user');
+var Admin = require('../model/admin');
+var DropPointItem = require('../model/droppoint');
 
 // Generate the Code
 function generateCode(){   
@@ -166,6 +161,7 @@ function updateObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
                 reporter: req.body.reporter,
                 other_info: req.body.other_info,
                 location: req.body.location,
+                status: req.body.status,
                 detail: req.body.color+" "+req.body.brand+" "+req.body.name+" and "+req.body.other_info+" in "+req.body.category+" category.",
                 // _id: req.params.id
             };
@@ -259,55 +255,203 @@ function deleteObject(type, req, res, ObjectSchema, adjacentObjectSchema, form) 
     });       
 }
 
-exports.index = function(req, res){
-    // Make a call to get all neede info from db
-    async.parallel({
-        user_count: function(callback){
-            User.countDocuments({}, callback);
-        },
-        found_item_count: function(callback){
-            FoundItem.countDocuments({}, callback);
-        },
-        lost_item_count: function(callback){
-            LostItem.countDocuments({}, callback);
-        },
-        returned_item_count: function(callback){
-            LostItem.countDocuments({'status': 'R'}, callback);
-        },
-        matched_lost_item: function(callback) {
-            LostItem.countDocuments({'match_found': true}, callback);            
-        },
-        matched_found_item: function(callback) {
-            FoundItem.countDocuments({'match_found': true}, callback);            
-        },
-        lost_list: function(callback) {
-            LostItem.find({}, callback);
-        },
-        found_list: function(callback) {
-            FoundItem.find({}, callback);
-        },
-        boxed_found: function(callback) {
-            FoundItem.find({'status': 'Boxed'}, callback);
-        },
-        boxed_lost: function(callback) {
-            LostItem.find({'status': 'Boxed'}, callback);
-        }
-    }, function(err, results){
-        if (err) {
-            var err = new Error('Response from database was not successful');
-            err.status = 444;
-            console.log('Error occurred: '+err.message);
-            next(err);
-        }
+exports.index = function(req, res, next){
+    if (!req.user){
+        // Requires authentication
+        return res.redirect('/admin/login');
+    }
 
-        // console.log('Done pulling: '+results);
-        res.render('admin_index', {
-            title: "Admin",
-            company: "MoFound NG",             
-            error: err, 
-            data: results});
-    });
+    if (req.user.type === "drop_point" && req.user.droppoint){
+        // Get the drop point attached to this user
+        // console.log("The user :", req.user);
+        // console.log("The user droppost :", req.user.droppoint);
+        
+        Admin.findById(req.user._id, function(err, admin_to_report){
+            console.log("The admin here being considerred", admin_to_report);
+            DropPointItem.findById(admin_to_report.droppoint, function(err, drop_point_to_use){
+                if (err) res.send(err);
+                var list_of_item = [];
+                var all_boxed_item_count = 0;
+                var matched_item_count = 0;
+                var returned_item_count = 0;
+                console.log("Current Drop point for ", admin_to_report.username," is " , drop_point_to_use.name);
+
+                if (drop_point_to_use != null) {
+                    for (var i=0; i < drop_point_to_use.items.length; i++){
+                        console.log(drop_point_to_use.items[i]);
+                        FoundItem.findById(drop_point_to_use.items[i], function(err, item){
+                            list_of_item.push(item);
+                            if (item.match_found){
+                                matched_item_count = matched_item_count+1;
+                            }
+                            if (item.status === "Returned"){
+                                returned_item_count = returned_item_count +1;
+                            }
+                            all_boxed_item_count = list_of_item.length;
+                            console.log("Returned ",returned_item_count, " Matched ", matched_item_count)
+                        })                        
+                    }
+                }
+                console.log("This is the shiiiiiiiiiiiiiiit: ",drop_point_to_use);
+                async.parallel({
+                    the_drop_point: function(callback){
+                        DropPointItem.findOne({"_id": admin_to_report.droppoint}, callback);
+                    },
+                    boxed_items_count: function(callback){
+                        DropPointItem.countDocuments({"_id": admin_to_report.droppoint}, callback);
+                    },
+                    all_reported_lost: function(callback){
+                        LostItem.countDocuments({}, callback);
+                    }        
+                }, function(err, results){
+                    if(drop_point_to_use != null){
+                        results.list_of_item = list_of_item;
+                    }
+                    if (err) {                        
+                        console.log('Error occurred: '+err.message);
+                        return next(err);
+                    }
+                    // Set the parameters 
+                    results.matched_item_count = matched_item_count;
+                    results.all_boxed_item_count = all_boxed_item_count;
+                    results.returned_item_count = returned_item_count;
+            
+                    console.log('Test Returned shiits: ',results.the_drop_point);
+                    res.render('droppoint_index', {
+                        title: "Drop point",
+                        company: "MoFound NG",             
+                        error: err,
+                        user: req.user, 
+                        data: results});            
+                })
+                // return res.send("Done  here: "+list_of_item);
+            })            
+        })             
+        return;   
+    }else if (req.user.type == "technical"){
+        // Make a call to get all neede info from db
+        async.parallel({
+            found_item_count: function(callback){
+                FoundItem.countDocuments({}, callback);
+            },
+            lost_item_count: function(callback){
+                LostItem.countDocuments({}, callback);
+            },
+            returned_item_count: function(callback){
+                LostItem.countDocuments({'status': 'R'}, callback);
+            },
+            matched_lost_item: function(callback) {
+                LostItem.countDocuments({'match_found': true}, callback);            
+            },
+            matched_found_item: function(callback) {
+                FoundItem.countDocuments({'match_found': true}, callback);            
+            },
+            lost_list: function(callback) {
+                LostItem.find({}, callback);
+            },
+            found_list: function(callback) {
+                FoundItem.find({}, callback);
+            },
+            boxed_found: function(callback) {
+                FoundItem.find({'status': 'Boxed'}, callback);
+            },
+            boxed_lost: function(callback) {
+                LostItem.find({'status': 'Boxed'}, callback);
+            }
+        }, function(err, results){
+            if (err) {
+                var err = new Error('Response from database was not successful');
+                err.status = 444;
+                console.log('Error occurred: '+err.message);
+                next(err);
+            }
+
+            // console.log('Done pulling: '+results);
+            res.render('admin_index', {
+                title: "Admin",
+                company: "MoFound NG",             
+                error: err, 
+                user: req.user,
+                data: results});
+        });
+    }else{
+        return res.send("You're not verified yet, Contact the admin to Open your account on 08031162141.");
+    }
+
+    
     // res.render('admin_index', {title: 'Admin'});
+}
+
+exports.loginGet = function(req, res) {
+    res.render('login', {title: "Admin login"})
+}
+exports.login = function(req, res) {
+    console.log("worked");
+    res.redirect('/admin');
+}
+exports.logout = function(req, res){
+    req.logout();
+    console.log("User logged out")
+    res.redirect('/admin/login');
+  }
+exports.registerGet = function(req, res) {
+    async.parallel({
+        all_drop_points: function(callback){
+            DropPointItem.find({},callback);
+        }
+    }, function(err, result){
+        res.render('register', {
+            title: "New Admin",
+            data: result
+        });                
+    })
+    // res.send("register here");
+}
+exports.registerPost = function(req, res, next) {
+    sanitizeBody('*').escape();
+    // Extract validation and sanitization errors
+    const errors = validationResult(req);
+    // if there was error return the form
+    if (!errors.isEmpty()){
+        // There are errors. Render form again
+        console.error('##Error: '+errors.array());
+        return res.render('register', {
+            title: "Register",
+            company: "MoFound NG",             
+            error: errors.array()
+        });
+    }
+    
+    var password = req.body.password;
+    var password2 = req.body.cpassword;
+
+    if (password == password2){
+        var newAdmin = new Admin({
+          username: req.body.username,
+          email: req.body.email,
+          phone: req.body.phone,
+          type: req.body.type,          
+        });
+        
+        newAdmin.setPassword(req.body.password);
+        console.log("Got here too ");
+        newAdmin.save(function (err){
+            if (err){
+                console.log(err.message);
+                var err = new Error("Unable to save item");
+                err.status = 500;                        
+                return res.render('register', {
+                    title: "Register",             
+                    error: err
+                });
+            }  
+            return res.send("Please Await your verification by the technical admin. After 24hrs you will be able to login to your admin page. ");                  
+            // return res.redirect('/admin/login');
+        });
+      } else{
+        res.status(500).send("{errors: \"Passwords don't match\"}");
+      }
+    // res.send("Hello");
 }
 // Display list of all items.
 exports.item_list = function(req, res) {
@@ -704,6 +848,327 @@ exports.lost_item_update_post = [
     }
     // res.send('NOT IMPLEMENTED: lostItem update POST '+req.params.id);
 ];
+
+exports.admin_create_get = function(req, res, next){
+    res.send("Not implemented Get")
+}
+exports.admin_create = function(req, res, next){
+    res.send("Not implemented Post")
+}
+exports.admin_update_get = function(req, res, next){
+    res.send("Not implemented Get")
+}
+exports.admin_update = function(req, res, next){
+    res.send("Not implemented Post")
+}
+exports.admin_read_get = function(req, res, next){
+
+    Admin.find({}, function(err, all_admin){
+        if(err){next(err)};
+        res.render("admin_list", {
+            title: "Admins",
+            admins: all_admin,
+            err: err
+        })
+    })
+}
+exports.admin_detail_get = function(req, res, next){
+    res.send("Detail of the admin");
+}
+
+exports.admin_delete_get = function(req, res, next){
+    res.send("Not implemented Get")
+}
+
+exports.admin_delete = function(req, res, next){
+    res.send("Not implemented Post")
+}
+
+//  Post Routes
+exports.post_create_get = function(req, res, next){
+    async.parallel({
+        list_of_admin: function(callback){
+            Admin.find({}, callback);
+        }
+
+    }, function(err, results){
+        res.render('post_create_form', {
+            title: "Admin|Create Post",
+            company: "MoFound NG", 
+            data: results,
+            error: err
+        });
+    })
+    // res.send("Hello blah")
+}
+exports.post_create = function(req, res, next){
+    body('name', "Item's name is required").isLength({ min: 1 }).trim();
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number');
+    body('location').optional();
+
+    sanitizeBody('*').escape();
+    // Extract validation and sanitization errors
+    const errors = validationResult(req);
+
+    // if there was error return the form
+    if (!errors.isEmpty()){
+        // There are errors. Render form again
+        console.error('VERBOSE: ItemController.js - Error Submitting form: '+errors.array());
+        return res.render('post_create_form', {
+            title: "Admin| Create Post",
+            company: "MoFound NG",             
+            error: errors.array()
+        });
+    }
+    // console.log("Admin",drop_point_admin);
+    var post = new DropPointItem({
+        name: req.body.name,
+        address: req.body.address,
+        location : {
+            longitude: req.body.longitude,
+            latitude: req.body.latitude
+        },
+        items: undefined,
+        admin: req.body.admin   
+    });
+    post.save(function(err, final_post){
+        // Add this post to the Admin droppost by updating it
+        if (err) res.send("Post Save: " +err.message);
+        console.log("The post saved ", final_post);
+        Admin.findOneAndUpdate({"_id": final_post.admin}, {$set: {droppoint: final_post._id,  isVerified: true}}, function(err, updated_admin){
+            if (err) req.send("Admin Update: "+ err);
+            console.log("The admin was updated too... ", updated_admin);
+            res.redirect(post.url);
+        })
+        // res.redirect(post.url);
+    })
+    // Admin.findOne({id: req.body.admin}, function(err, drop_point_admin){
+        
+    // })
+}
+
+exports.post_add_new_item_get = function(req, res, next){
+    res.render('post_add_item_form', {
+        title: "Admin|Create Post",
+        company: "MoFound NG"
+    });
+}
+exports.post_add_new_item = function(req, res, next){
+    async.parallel({
+        found_item: function(callback){
+            FoundItem.findOne({'code': req.body.code}).exec(callback);
+        },
+    }, function(err, results){
+        if (err){ 
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return next(err);           
+        }
+        if (!results.found_item){ 
+            // if both are not found
+            var err = new Error('Item not is not registered, please register it first.');
+            err.status = 406;
+            return res.render('post_add_item_form', {
+                title: 'Admin|Create Post',
+                error: err
+            });    
+            // return res.redirect('/admin/post/add_new');
+            // res.send(err.message)
+        }else {
+            var response = undefined;
+            if (results.found_item != null){
+                response = results.found_item;
+                // console.log('Successful fetching of the data '+results.found_item._id);
+                
+                // Add this item to the list of item for this post:
+                // Find and update the post item with this item.
+                DropPointItem.findOneAndUpdate({"_id":req.user.droppoint}, {$push: {"items": response}}, function(err, droppoint){
+                    console.log("The new Droppost: ", droppoint);
+                    res.redirect('/admin');
+                })
+                // res.send("The user"+ req.user);
+            }
+            return;                      
+        }
+    })
+    
+    // res.send("To be implemented "+req.query.code+", "+req.body.code);
+}
+exports.post_update_get = function(req, res, next){
+    res.send("Blah blah")
+}
+exports.post_update = function(req, res, next){
+    res.send("Not implemented Post")
+}
+exports.post_read_get = function(req, res, next){
+    DropPointItem.find({}, function(err, all_drop_points){
+        if(err){next(err)};
+        res.render("post_list", {
+            title: "Admin|Posts",
+            drop_points: all_drop_points,
+            err: err
+        })
+    })
+}
+exports.post_detail_get = function(req, res, next){
+    // async.ser({
+    //     drop_point : function(callback){
+    //         DropPointItem.findById(req.params.id, callback);
+    //     },
+    //     admin : function(callback){
+    //         Admin.findById()
+    //     }
+
+    // }, function(err, results){
+
+    // })
+    DropPointItem.findById(req.params.id, function(err, drop_point){
+        Admin.findById(drop_point.admin, function(err, admin){
+            res.render("post_detail", {
+                title: "Admin|"+drop_point.name,
+                post: drop_point,
+                admin: admin,
+                error: err
+            })
+        })
+    })
+    // res.send("Detail of the post1- Detail");
+}
+
+exports.post_delete_get = function(req, res, next){
+    res.send("Not implemented Get")
+}
+exports.post_delete = function(req, res, next){
+    res.send("Not implemented Get")
+}
+
+exports.post_item_detail_get =function(req, res, next){
+    // Get the item from the id
+    async.parallel({
+        found_item: function(callback) {
+            FoundItem.findOne({'_id': req.params.id}).exec(callback);
+        },
+        
+    }, function(err, results){
+        if (err) {
+            // No result was found
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return next(err);
+        }
+
+        if (results.found_item == null){
+            // No result was found
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return next(err);
+        }
+        // Successful, so render
+        console.log("showing "+results.found_item);
+        res.render(
+            'droppoint_item_detail', {
+                title: results.found_item.name,
+                company: "MoFound NG",             
+                error: err,
+                data: results
+            });
+    });
+    //res.send("Not implemented yet: Post Item Get");
+}
+
+exports.post_item_update_get =function(req, res, next){       
+    res.send("Not implemented yet: update Item Get");
+}
+exports.post_item_update =function(req, res, next){
+    res.send("Not implemented yet: update Item Post");
+}
+
+exports.post_item_delete_get =function(req, res, next){
+    async.parallel({
+        found_item: function(callback) {
+            FoundItem.findById(req.params.id).exec(callback)
+        }
+    }, function(err, results) {
+        if (err) { return next(err); }
+        if (results.found_item==null) { // No results.
+            res.redirect('/admin');
+        }
+        // Successful, so render.
+        res.render('droppoint_item_delete', { title: results.found_item.name, data: results});
+    }); 
+    // res.send("Not implemented yet: Delete Item Get");
+}
+exports.post_item_delete =function(req, res, next){
+    // res.send("Not implemented yet: delete Item Post");
+    // deleteObject("Found", req, res, FoundItem, LostItem, "admin_index");
+    FoundItem.findById(req.params.id, function(err, item_to_delete){
+        if(err){
+            console.error(err);
+            return next(err);
+        }
+        if(item_to_delete.match_found){
+            LostItem.findOneAndRemove({"_id":item_to_delete.matched_item}, function(err, updated_item_delete){
+                console.log("An item was removed");
+            })
+        }
+
+        DropPointItem.findOneAndUpdate({"_id": req.user.droppoint}, {$pull: {"items": req.params.id}}, function(err, updated_drop_point){
+            console.log("The drop point being considered ", updated_drop_point);
+
+            FoundItem.findOneAndRemove({"_id": req.params.id}, function(err){
+                if(err){
+                    console.error(err);
+                    return next(err);
+                }
+                console.log("Item Deleted ")
+                res.redirect('/admin');
+            });
+        })
+
+        // Admin.findById(req.user._id, function(err, admin_to_report){
+        //     console.log("The drop point being considerred is id: ", admin_to_report.droppoint);
+        //     async.parallel([
+        //         function(callback){
+        //             DropPointItem.findOneAndUpdate({"_id": admin_to_report.droppoint}, {
+        //                 $pull: {"items": req.params.id}}, callback);
+        //         },
+        //         // function(callback){
+        //         //     DropPointItem.findOneAndUpdate({"_id": admin_to_report.droppoint}, {
+        //         //         $pull: {"items": req.params.id}}, callback);
+        //         // }
+
+        //     ], function(err, response){
+        //         FoundItem.findByIdAndRemove(req.params.id, function(err){
+        //             if(err){
+        //                 console.error(err);
+        //                 return next(err);
+        //             }
+        //             console.log("Item Deleted ")
+        //             res.redirect('/admin');
+        //         });
+
+        //     })
+            // DropPointItem.findOneAndUpdate({"_id": admin_to_report.drop_point}, {
+            //     $pull: {"items": req.params.id}}, function(err, updated_drop_point){
+
+            //     })
+            // DropPointItem.findOneAndUpdate({"_id": admin_to_report.drop_point}, {
+            //         $pull: {"items": req.params.id}}, function(err, updated_drop_point){ 
+            //             console.log(updated_drop_point);   
+            //     })
+                
+            // DropPointItem.findByIdAndUpdate(admin_to_report.droppoint, { "$pull": { items: {"_id": item_to_delete._id}}} ,function(err, drop_point_to_use){
+            //     console.log(drop_point_to_use);
+                
+            // })
+    });
+        
+// res.send("Delete post");
+}
+
+
+
+
 
 
 

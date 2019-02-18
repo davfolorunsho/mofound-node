@@ -6,14 +6,14 @@
 					<header>
 						<h2> {{title}} Form</h2>
 					</header>
-					{{#errors}}
-					<p>{{errors}}</p>
-					{{/errors}}
+					{{#error}}
+					<p>{{msg}}</p>
+					{{/error}}
 					<form class ="centralize" action="#" method="post">
 	
 						<div class="field">
-							<label for="name">Name *</label>
-							<input name="name" id="name" type="text" placeholder="Enter Name">
+							<label for="username">Username *</label>
+							<input name="username" id="username" type="text" placeholder="Enter Name">
 						</div>
 						
 						<div class="field">
@@ -33,10 +33,17 @@
 							<input name="cpassword" id="cpassword" type="password" placeholder="Confirm Password">
 						</div>
 						<div class="field">
+							<select name="type">
+								<option value="technical">Technical</option>
+								<option value="drop_point">Drop point</option>
+								<option value="other">Others</option>
+							</select>
+						</div>
+						<br>
+						<div class="field">
 							<input type="submit" value="Submit" class="small" />
 						</div>					
 					</form>
-
 										
 				</div>
 			</section>

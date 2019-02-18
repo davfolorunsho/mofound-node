@@ -1,4 +1,4 @@
-{{>auth_header}}
+{{>form_header}}
 
 	<!-- Three -->
 			<section id="main" class="wrapper">

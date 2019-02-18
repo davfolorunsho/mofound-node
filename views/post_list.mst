@@ -1,4 +1,4 @@
-{{>admin_base_4}}
+{{>admin_base_3}}
         <!-- Main content -->
         <section class="content">
           <!-- Info boxes -->
@@ -19,23 +19,20 @@
                     <table class="table no-margin">
                       <thead>
                         <tr>
-                          <th>Item code</th>
-                          <th>Item Name</th>
-                          <th>Status</th>
-                          <th>Matched</th>
-                          <th>reporter</th>
+                          <th>Drop Point Name</th>
+                          <th>Address</th>
+                          <th>Admin In Charge</th>                          
+                          {{! <th>reporter</th> }}
                         </tr>
                       </thead>
                       <tbody>
-                        {{#data.lost_list}}
+                        {{#drop_points}}
                         <tr>
-                          <td><a href="/admin/lost/{{_id}}">{{code}}</a></td>
-                          <td>{{name}}</td>
-                          <td><span class="label label-success">{{status}}</span></td>   
-                          <td>{{match_found}}</td>
-                          <td>{{reporter}}</td>
+                          <td><a href="/admin/post/{{_id}}">{{name}}</a></td>
+                          <td>{{address}}</td>   
+                          <td>{{admin}}</td>                          
                         </tr>                        
-                        {{/data.lost_list}}       
+                        {{/drop_points}}       
                       </tbody>
                     </table>
                   </div><!-- /.table-responsive -->
@@ -87,4 +84,4 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
-      {{> admin_footer2}}
+      {{> admin_footer3}}

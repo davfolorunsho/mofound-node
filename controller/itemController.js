@@ -22,6 +22,36 @@ var Item = require('../model/item');
 var User = require('../model/user');
 var randomize = require('randomatic');
 
+const Geo = require('geo-nearby');
+var data = [
+    [-7.30278, 149.14167, 'Hezekiah Oluwasanmi Library'],
+    [-33.86944, 151.20833, 'OAU Senate'],
+    [-37.82056, 144.96139, 'Forks & Finger, OAU'],
+    [-34.93333, 138.58333, 'White House, OAU'],
+    [-27.46778, 153.02778, 'Yellow House, OAU'],
+    [-31.95306, 115.85889, 'Social Sciences']
+  ];
+
+const dataSet = Geo.createCompactSet(data);
+const geo = new Geo(dataSet, { sorted: true });
+
+// Add a new Location to the data
+function addLocation(longitude, latitude, name) {
+    var data_length = data.length;
+    var new_data = [latitude, longitude, name];
+    data.push(new_data);
+    checkLocationData();
+    return;   
+}
+function checkLocationData(){
+    for (var i=0; i < data.length; i++){
+        var l_data = data[i];
+        console.log(l_data[0], l_data[1], l_data[2]);
+    }
+    return;
+}
+checkLocationData();
+
 // Generate the Code
 function generateCode(){   
     var rand = randomize('0Aa', 7);
@@ -281,15 +311,6 @@ exports.found_item_list = function(req, res) {
 exports.lost_item_list = function(req, res) {
     res.send('NOT IMPLEMENTED: mising item list');
 };
-const Geo = require('geo-nearby');
-const data = [
-    [-35.30278, 149.14167, 'Hezekiah Oluwasanmi Library'],
-    [-33.86944, 151.20833, 'OAU Senate'],
-    [-37.82056, 144.96139, 'Forks & Finger, OAU'],
-    [-34.93333, 138.58333, 'White House, OAU'],
-    [-27.46778, 153.02778, 'Yellow House, OAU'],
-    [-31.95306, 115.85889, 'Social Sciences']
-  ];
 
 // Display detail page for a specific found item.
 exports.found_item_detail = function(req, res, next) {
@@ -304,12 +325,17 @@ exports.found_item_detail = function(req, res, next) {
         text: 'Check this library to help you create share twitter url',
         url: 'https://github.com/bukinoshita/share-twitter'
       })
-      const dataSet = Geo.createCompactSet(data);
-      const geo = new Geo(dataSet, { sorted: true });
-       
-      geo.nearBy(-33.87, 151.2, 5000);
-     
-    var location = geo.nearBy(-33.87, 151.2, 50000);
+    
+      // Get the location nearest to the user
+      var user_location = undefined;
+    //   if (navigator.geolocation) {
+    //     user_location = navigator.geolocation.getCurrentPosition();
+    //   } else { 
+    //     user_location = "Geolocation is not supported by this browser.";
+    //   }
+    
+    console.log("This user's current position is ", user_location);
+    var location = geo.nearBy(-33.87, 151.2, 10000);
     // Get the item from the id
     async.parallel({
         found_item: function(callback) {
@@ -435,8 +461,7 @@ exports.found_item_code_get = function(req, res, next) {
                 response = results.lost_item;
                 console.log('Successful fetching of the data '+results.lost_item._id);
                 return res.redirect('/item/lost/'+results.lost_item._id);
-            }
-                      
+            }                      
         }
         console.log('Successful fetching of the data.');
     });

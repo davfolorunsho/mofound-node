@@ -10,12 +10,12 @@
 					<form class ="centralize" action="#" method="post">
 	
 						<div class="field">
-							<label for="email">Email *</label>
-							<input class="small" name="email" id="email" type="email" placeholder="Enter email">
+							<label for="username">Username </label>
+							<input class="small" name="username" id="username" type="text" placeholder="Enter email">
 						</div>
 						
 						<div class="field">
-							<label for="password"> Password *</label>
+							<label for="password"> Password </label>
 							<input class="small" name="password" id="password" type="password" placeholder="Enter password">
 						</div>
 			
@@ -23,8 +23,8 @@
 							<input type="submit" value="Submit" class="small" />
 						</div>					
 					</form>
-					<p> You want to register? Click <a href="/users/new"> Register</a> </p> 
+					<p> You want to register? Click <a href="/admin/register"> Register</a> </p> 
 				</div>
 			</section>
         
-{{>form_footer}}
+{{>login_footer}}

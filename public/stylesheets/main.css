@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import url(font-awesome.min.css);
-@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600";
+@import "https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans:300,400|Pacifico";
+
 
 /*
 	Mofound Designs
@@ -1928,6 +1929,7 @@
 	}
 	header h3.form-header{
 		color: rgb(5, 68, 10);
+		font-family: "Pacifico", cursive;
 	}
 
 	header p {
@@ -2812,7 +2814,7 @@
 			top: 0;
 			height: 44px;
 			line-height: 44px;
-			position: fixed;
+			
 		}
 
 	#header {
@@ -2821,9 +2823,9 @@
 		height: 3.25em;
 		left: 0;
 		line-height: 3.25em;
-		position: fixed;
+		position: absolute;
 		text-align: right;
-		top: 2em;
+		top: 1em;
 		width: 100%;
 		z-index: 10001;
 	}
@@ -2841,14 +2843,11 @@
 			font-weight: 400;
 			height: inherit;
 			left: 0;
-			line-height: inherit;
-			margin: 0;
-			padding: 0;
+			line-height: inherit;			
 			position: absolute;
 			top: 0;
 			font-size: 2.5em;
 			letter-spacing: 2px;
-			margin-top: -5px;
 			text-decoration: none;
 			display: inline-block;
 		}
@@ -2865,12 +2864,20 @@
 			-ms-transition: color 0.2s ease-in-out;
 			transition: color 0.2s ease-in-out;
 			display: inline-block;
-			padding: 0 0.75em;
+			padding: 0 0.55em;
 			color: inherit;
 			text-decoration: none;
 			font-size: 1em;
 			font-family: "Pacifico", cursive;
 		}
+		#header a img {
+			width: 3em;
+			height: 1.7em;
+			align-content:flex-start;
+			float: left;
+		}
+
+
 
 			#header a:hover {
 				color: #ffffff;
@@ -2897,6 +2904,11 @@
 					#header a.navPanelToggle {
 						display: inline-block;
 					}
+					#header a img {
+						width: 2em;
+						height: 2.0em;
+						float: left;
+					}
 
 				}
 
@@ -2904,6 +2916,13 @@
 
 				#header a {
 					padding: 0 0.5em;
+				}
+
+				#header a img {
+					width: 1.5em;
+					height: 1.5em;
+					align-content:flex-start;
+					float: left;
 				}
 
 			}
@@ -2914,6 +2933,13 @@
 			top: 1em;
 		}
 
+		#header a img {
+			width: 1.0em;
+			height: 1.0em;
+			align-content:flex-start;
+			float: left;
+		}
+
 	}
 
 	@media screen and (max-width: 736px) {
@@ -2922,12 +2948,25 @@
 			top: .5em;
 		}
 
+		#header a img {
+			width: .5em;
+			height: .5em;
+			float: left;
+		}
+
 	}
 
 	@media screen and (max-width: 480px) {
 
 		#header {
 			font-size: .9em;
+		}
+
+		#header a img {
+			width: .9em;
+			height: .9em;
+			align-content:flex-start;
+			float: left;
 		}
 
 	}
@@ -3068,6 +3107,7 @@
 			line-height: 1em;
 			margin: 0 0 1em 0;
 			padding: 0;
+			font-family: "Pacifico", cursive;
 		}
 
 		#banner h3 {

@@ -10,7 +10,8 @@
 		<!-- Header -->
 			<header id="header" class="container">
 				<div class="inner">
-					<a href="/" class="logo">MoFound</a>
+					{{! <a href="/" class="logo">MoFound</a> }}
+					<a href="/" class="logo"><img src="../../images/logo_deep.png"/></a>
 					<nav id="nav">
 						<a href="/">Home</a>
 						<a href="#">About</a>

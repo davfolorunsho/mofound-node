@@ -63,7 +63,12 @@ var LostSchema = new Schema(
         matched_item: {
             type: Schema.Types.ObjectId, 
             ref: "Found"
-            }
+        },
+        droppoint: {
+            type: Schema.Types.ObjectId,
+            ref: "DropPoint"
+        },
+        date_of_reg: {type:Date, default: Date.now()},
     }
 );
 //--- Virtual methods

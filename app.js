@@ -19,10 +19,10 @@ var indexRouter = require('./routes/main');
 var usersRouter = require('./routes/main/users');
 var apiRouter = require('./routes/api/index');
 var adminRouter = require('./routes/admin/admin');
+// const bcrypt = require('bcrypt'); 
 
-
+require('./model/admin');
 require('./config/passport');
-
 var app = express();
 
 // Configure Middlewares
@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({ 
     secret: 'mofound-session', 
-    cookie: { maxAge: 60000 }, 
+    cookie: { minxAge: 6000000 }, 
     resave: true, 
     saveUninitialized: true }));
 app.use(passport.initialize());
@@ -56,11 +56,9 @@ app.set('views', path.join(__dirname, 'views'));
 // app.engine('mst', mustache(__dirname + 'views/partials', '.mst'));
 // app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 // Set up mongoose connection
-// var mongoDB = 'mongodb://localhost:27017/mofounddb';
-var mongoDB = "mongodb://admin:mofound2admin@ds115244.mlab.com:15244/mofounddb"
+var mongoDB = 'mongodb://localhost:27017/mofounddb';
+// var mongoDB = "mongodb://admin:mofound2admin@ds115244.mlab.com:15244/mofounddb"
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 // mongoose.connect(mongoDB, { useNewUrlParser: true })
@@ -74,6 +72,14 @@ app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
 
+
+app.use(function(err, req, res, next) {
+    console.error(err.message);
+    if (!err.status) err.status = 500;
+    res.status(err.status).send(err.message);
+    res.render('error');
+  })
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     
@@ -82,14 +88,14 @@ app.use(function(req, res, next) {
     next(err);
   });
   
-  // error handler
+  // // error handler
   app.use(function(err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
   
     // render the error page
-    console.error(err.message);
+    console.error("#Error", err.message);
     res.status(err.status || 500);
     // res.render('error');
     res.redirect('/error');
