@@ -27,6 +27,15 @@
 									</tr>
 								{{/ data.found_item.image}}
 								<tr>
+									<td>Is Item Special</td>
+									{{# data.found_item.isSpecial}}
+									<td>Yes</td>
+									{{/ data.found_item.isSpecial}}
+									{{^ data.found_item.isSpecial}}
+									<td>No</td>
+									{{/ data.found_item.isSpecial}}
+								</tr>	
+								<tr>
 									<td>Item Name</td>
 									<td>{{data.found_item.name}}</td>
 								</tr>

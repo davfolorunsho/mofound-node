@@ -5,6 +5,22 @@ var indexController = require('../../controller/indexController');
 var adminController = require('../../controller/adminController');
 var passport = require('passport');
 
+const multer  = require('multer')
+
+var path = require('path')
+var storage = multer.diskStorage({
+  destination: function(req, file, callback){
+    callback(null, './public/uploads/')
+  },
+  filename: (req, file, callback)=>{
+    callback(null, file.originalname)
+  }
+})
+
+var upload = multer({storage: storage,
+  limits:{fileSize: 1000000},
+  })
+
 /* GET home page. */
 router.get('/', adminController.index);
 // router.get('/', adminController.index);
@@ -23,10 +39,14 @@ router.get('/losts', adminController.lost_item_list);
 
 // Add a new found item
 router.get('/found/new', adminController.found_item_create_get);
-router.post('/found/new', adminController.found_item_create_post);
+router.post('/found/new', upload.single('image'), adminController.found_item_create_post);
+// router.post('/found/new', upload.single('image'), (req, res)=>{
+//     console.log("₦₦#@@#₦₦#####################: ", req.file)
+//     res.send("The file is expected here: "+req.file)
+// });
 
 router.get('/lost/new', adminController.lost_item_create_get);
-router.post('/lost/new', adminController.lost_item_create_post);
+router.post('/lost/new', upload.single('image'), adminController.lost_item_create_post);
 
 // View a found and lost detail
 router.get('/found/:id', adminController.found_item_detail);

@@ -36,8 +36,9 @@ var LostSchema = new Schema(
             unique: true
         }, 
         image: {
-            data: Buffer, 
-            contentType: String
+            path: String,
+            url: String,
+            caption: String
         },
         reporter:{type: String, default: 'Unknown'},
         location: {
@@ -57,16 +58,17 @@ var LostSchema = new Schema(
             type: Boolean,
             default: false
         },
-        receiver_code: {
-            type: String,
-        },
         matched_item: {
             type: Schema.Types.ObjectId, 
-            ref: "Found"
+            ref: "Lost"
         },
         droppoint: {
             type: Schema.Types.ObjectId,
             ref: "DropPoint"
+        },
+        isSpecial: {
+            type: Boolean,
+            default: false
         },
         date_of_reg: {type:Date, default: Date.now()},
     }

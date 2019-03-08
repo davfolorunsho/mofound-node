@@ -35,6 +35,9 @@ DropPointSchema.methods.addItem = function(item){
     this.items.push(item);
     return this.items;
 }
+DropPointSchema.methods.getLocation = function(){
+    return [this.location.latitude, this.location.longitude, this.name];
+}
 
 // Virtual for user name
 DropPointSchema.virtual('getName')
@@ -46,9 +49,22 @@ DropPointSchema.virtual('url')
         return '/admin/posts/'+this._id;
     });
 
+DropPointSchema.virtual('latitude')
+    .get(function(){
+        return this.location.latitude;
+    });
+DropPointSchema.virtual('longitude')
+    .get(function(){
+        return this.location.longitude;
+    });
+DropPointSchema.virtual('sendname')
+    .get(function(){
+        return this.name;
+    });
+
 DropPointSchema.virtual('getlocation')
     .get(function(){
-        return [this.location.latitude, this.location.longitude, this.name];
+        return this.location.latitude, this.location.longitude, this.name;
     });
 
 

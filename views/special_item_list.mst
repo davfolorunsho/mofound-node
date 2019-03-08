@@ -1,0 +1,31 @@
+{{>form_header}}
+<!-- Three -->
+			<section id="main" class="wrapper">
+				<div class="inner">
+					<header class="align-center">
+						<h3> {{title}} </h3>
+					</header>
+					<div class="wrapper">
+                        <ul>
+                            {{# data.special_items}}
+                            <hr>
+                            <li class="special-list">
+                                <div class="special-item item">
+                                    <a href="/item/found/{{_id}}">
+                                    <img class="img" src="../uploads/{{image.caption}}" alt="{{data.special_items.image.path}}" />
+                                    </a>
+                                </div>
+                                <p>{{detail}}</p>
+                                <p> Found at:  {{location}} </p>
+                            </li>
+                            <hr>
+                            {{/ data.special_items}}
+                        </ul>
+                    </div>											
+				</div>
+
+                <div>
+                    <a class="button" href="/item/lost/new">Report your lost item</a>                
+                </div>
+			</section>
+{{>form_footer}}

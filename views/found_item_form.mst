@@ -9,7 +9,7 @@
 						<p class="danger">{{msg}} </p>
 						{{/error}}
 					</header>
-					<form class ="centralize" action="#" method="post">	
+					<form class ="centralize" action="/item/found/new" enctype="multipart/form-data" method="post">	
 						<div class="field half first">
 							<label for="name">Item Name *</label>
 							<input name="name" id="name" type="text" placeholder="Name" value="{{data.found_item.name}}">
@@ -54,7 +54,7 @@
 						</div>
 						<div class="field">
 							<label for="name">Image</label>
-							<input name="image" id="image" type="file" placeholder="Click to select upload image">
+							<input name="image" id="image" type="file">
 						</div>
 						<div class="field">
 							<input type="submit" value="Submit" class="small smaller" />

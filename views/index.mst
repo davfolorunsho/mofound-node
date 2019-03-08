@@ -41,7 +41,7 @@
 					<div class="flex flex-3">
 						<article>
 							<div class="image">
-								<a href="/item/found/new"><img src="images/reportfounditem.png" alt="Pic 01" /></a>
+								<a href="/item/found/new"><img src="https://res.cloudinary.com/primefeed/image/upload/v1552009952/mofound/reportfounditem.png" alt="Pic 01" /></a>
 							</div>
 							<header>
 								<a href="/item/found/new" class="button">Enter Found Item</a>								
@@ -50,18 +50,20 @@
 							<footer>
 								<br>
 								<p>You want to help the owner of that item get the item <br/> back, fill the found item form and a code will be <br />generated incase you want to follow up on the item.</p>
-								{{! <h3>Report Found</h3>								 }}
+								
 							</footer>
 						</article>
 						<article>
 							
 							<header>
 								<div class="image">
-									<img src="images/follow_up1.jpeg" alt="Follow up" />
+									<img src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_210/v1552010950/mofound/followup.png" alt="Follow up" />
 									<h4>Enter the item code</h4>	
 									<p>Follow up on items reported</p>
 								</div>
-								<p class ="danger">{{error}}</p>														
+								{{#error}}
+								<p class ="danger">{{error}}</p>
+								{{/error}}														
 							</header>                        
 							<footer>
 								<form action="/item/code/" method="get">
@@ -73,7 +75,7 @@
 						</article>
                         <article>
 							<div class="image">
-								<a href="/item/lost/new"><img src="images/reportlostitem.png" alt="Lost Item" /></a>
+								<a href="/item/lost/new"><img class="" src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_225/v1552009179/mofound/missing.png" alt="Lost Item" /></a>
 							</div>
 							<header>
 								<a href="/item/lost/new" class="button">Enter Lost Item</a>
@@ -87,5 +89,34 @@
 					</div>
 				</div>
 			</section>
+			<hr>
+			<section class = "align-center">
+				<header> <h2> Found Items(Owners Specific Items) </h2> </header>
+				<!-- Slideshow container -->
+				<div class="slideshow-container">
+				<ul class="icons items">
+				{{#data.special_items}}
+					<li> 
+						<div class="image item fit">
+							<a href="/item/found/{{_id}}">
+							<img class="img" src="uploads/{{image.caption}}" alt="{{data.special_items.image.path}}" />
+							<p class="item-name"> {{name}} </p>
+							</a>
+						</div>
+					<li>
+				{{/data.special_items}}
+
+				{{^data.special_items}}
+					<li>
+						<h3> No Special Items at this time, check again later. </h3>
+					<li>
+				{{/data.special_items}}
+				</ul>
+
+				<footer> 
+				<h2><a href="/items/special">See All User Specific Item</a></h2>
+				</footer>
+			</section>
+			<hr>
 
 {{>footer}}

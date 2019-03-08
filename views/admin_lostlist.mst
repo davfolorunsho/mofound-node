@@ -87,4 +87,4 @@
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
 
-      {{> admin_footer2}}
+      {{> admin_footer1}}

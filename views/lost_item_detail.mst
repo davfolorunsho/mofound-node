@@ -11,10 +11,17 @@
 								<tr> 
 									<h3>Item Code: {{data.lost_item.code}}</h3>									
 									<p class="success">Your Item was registered successfully. You will be contacted when a match is found. Copy the code above to follow up on your item. </p>
-									<p><span class="success">If the code doesn't load this page, that means the match has been found and returned to the owner.</span></p>
-									<h4>Report at this nearest locations to you: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>
-									<div>{{data.lost_item.image}}</div>
+									<h4>Report at any of this locations: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>
 								</tr>
+								{{^data.lost_item.image}}	
+									<p> No Picture for this item </p>
+								{{/data.lost_item.image}}
+								{{#data.lost_item.image}}		 
+									<div class="item">
+										<img class="img" src="../../uploads/{{caption}}" alt="{{path}}" />
+									</div>
+								{{/data.lost_item.image}}
+								
 							</thead>
 							<tbody>
 								<tr>

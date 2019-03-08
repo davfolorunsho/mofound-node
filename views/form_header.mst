@@ -9,13 +9,13 @@
 	<body>
 		<!-- Header -->
 			<header id="header" class="container">
-				<div class="inner">
-					{{! <a href="/" class="logo">MoFound</a> }}
+				<div class="inner">			
 					<a href="/" class="logo"><img src="../../images/logo_deep.png"/></a>
 					<nav id="nav">
 						<a href="/">Home</a>
 						<a href="#">About</a>
 						<a href="#footer">Contact Us</a>
+						<a href="/admin">Admin</a>
 					</nav>
 					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 				</div>

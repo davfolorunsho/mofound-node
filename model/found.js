@@ -16,7 +16,7 @@ var FoundSchema = new Schema(
         },        
         category: {
             type: String,
-            // enum: ['Documents', 'Household','Religious', 'Bottled', 'Electronic', 'Others' ]
+            enum: ['Documents', 'Household','Religious', 'Bottled', 'Electronic', 'Others' ],
         },
         brand: {
             type: String,
@@ -25,6 +25,7 @@ var FoundSchema = new Schema(
         },
         major_color: {
             type: String,
+            default: 'No Color'
         },
         size_group :{
             type: String,
@@ -38,7 +39,9 @@ var FoundSchema = new Schema(
             unique:true
         }, 
         image: {
-            type: String
+            path: String,
+            url: String,
+            caption: String
         },
         reporter:{type: String, default: 'Unknown'},
         location: {
@@ -65,6 +68,10 @@ var FoundSchema = new Schema(
         droppoint: {
             type: Schema.Types.ObjectId,
             ref: "DropPoint"
+        },
+        isSpecial: {
+            type: Boolean,
+            default: false
         },
         date_of_reg: {type:Date, default: Date.now()},
     }

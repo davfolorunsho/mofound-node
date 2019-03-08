@@ -6,17 +6,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
 var passport = require('passport');
-// var {MongoClient} = require("mongodb");
-var multer  = require('multer')
-
 var mustacheExpress = require('mustache-express');
-// var mustache = require('mustache');
 var engine = mustacheExpress();
-var cache = engine.cache; // Caches the full file name with some internal data.
-
 
 var indexRouter = require('./routes/main');
-var usersRouter = require('./routes/main/users');
 var apiRouter = require('./routes/api/index');
 var adminRouter = require('./routes/admin/admin');
 // const bcrypt = require('bcrypt'); 
@@ -52,26 +45,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'mst');
 // app.set('views', __dirname + '/views');
 app.set('views', path.join(__dirname, 'views'));
-// app.set('partials', __dirname + '/views/partials');
-// app.engine('mst', mustache(__dirname + 'views/partials', '.mst'));
-// app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up mongoose connection
 // var mongoDB = 'mongodb://localhost:27017/mofounddb';
 var mongoDB = "mongodb://admin:mofound2admin@ds115244.mlab.com:15244/mofounddb"
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
-// mongoose.connect(mongoDB, { useNewUrlParser: true })
-// var db = mongoose.connection;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // db.on('error', console.log('Error Connecting to Database'));
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
-
 
 app.use(function(err, req, res, next) {
     console.error(err.message);

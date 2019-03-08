@@ -17,7 +17,7 @@ var DropPointItem = require('../model/droppoint');
 
 // Generate the Code
 function generateCode(){   
-    var rand = randomize('0Aa', 7);
+    var rand = randomize('0Aa', 4);
     genCode = rand;
     return rand;
 }
@@ -76,12 +76,21 @@ function createObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
         major_color: req.body.color,
         size_group: req.body.size,
         other_info: req.body.other_info,
-        image: req.body.image,
         location: req.body.location,
         reporter: req.body.reporter,
-        status: req.body.status,    
+        status: req.body.status,  
+        isSpecial: req.body.is_special, 
         code: generateCode()    
     });
+
+    // Check if file is included
+    if (req.file){
+        new_item.image =  {
+            path: req.file.path,
+            url: req.file.url,
+            caption: req.file.originalname
+        }
+    }
 
     // Make the detail out
     new_item.makeDetail();
@@ -509,8 +518,7 @@ exports.found_item_detail = function(req, res) {
     async.parallel({
         found_item: function(callback) {
             FoundItem.findOne({'_id': req.params.id}).exec(callback);
-        },
-        
+        }        
     }, function(err, results){
         if (err) {
             // No result was found
@@ -537,6 +545,7 @@ exports.found_item_detail = function(req, res) {
     });
     // res.send('NOT IMPLEMENTED: FoundItem detail: ' + req.params.id);
 };
+
 
 // Display detail page for a specific lost item.
 exports.lost_item_detail = function(req, res, next) {
@@ -617,110 +626,16 @@ exports.lost_item_create_get = function(req, res) {
 };
 
 // Handle foundItem create on POST.
-exports.found_item_create_post = [
-    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number'),
-    body('location').optional(),
+exports.found_item_create_post = function(req, res, next){
+    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required")
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number')
+    body('location').optional()
     // body('category').equals(!'-select-').withMessage('Select a category for item'),
 
-    sanitizeBody('*').escape(),
-    
-    // handle the req, and res and next
-    (req, res, next) => {
-
-        createObject("Found", req, res, FoundItem, LostItem, "admin_create_found", next);
-
-        // // Extract validation and sanitization errors
-        // const errors = validationResult(req);
-
-        // // if there was error return the form
-        // if (!errors.isEmpty()){
-        //     // There are errors. Render form again
-        //     console.error('ItemController.js - Error Submitting form: '+errors.array()[0].message);
-        //     return res.render('admin_create_found', {
-        //         title: "Found",
-        //         company: "MoFound NG",             
-        //         error: errors.array()
-        //     });
-        // }
-        // // No errors submitting form, proceed to saving the info
-        // // Create a lost object with escaped and trimmed
-        // var found_item = new FoundItem({
-        //     name: req.body.name,
-        //     category: req.body.category,
-        //     brand: req.body.brand,
-        //     major_color: req.body.color,
-        //     size_group: req.body.size,
-        //     other_info: req.body.other_info,
-        //     image: req.body.image,
-        //     location: req.body.location,
-        //     reporter: req.body.reporter,
-        //     status: req.body.status,    
-        //     code: generateCode()    
-        // });
-
-        // // Make the detail out
-        // found_item.makeDetail();
-        
-        // // Check if the reported item matches the adjacent item type
-        // LostItem.find({}, function(err, lost_items){
-        //     // handle error
-        //     if (err) {return next(err)};
-
-        //     if (lost_items == null){
-        //         err = new Error('Error fetching lost items, please go home');
-        //         err.status = 500;
-        //         console.error("ItemController: Error fetching lost items");
-        //         return next(err);
-        //     } 
-
-        //     // For found items were returned
-        //     console.log("ItemController: Start Matching the file");
-        //     // Run a match test
-        //     var item_matched = checkForMatch(found_item.detail, lost_items);
-        //         // if the similarity is above 60%- send msg to admin/Notify the reporter
-        //         if (item_matched != null){
-        //             // Item is matched, Notify the user/admin and update the found items match_found value
-        //             found_item.match_found = true;
-                    
-        //             console.log("\n \n****---ItemController: Update Lost Item match_found to be : "+found_item.match_found);
-        //             // Update the corresponding match_found value for matched item
-        //             item_matched.match_found = true;
-        //             var matched_item = {
-        //                 match_found: true
-        //             }
-
-        //             // Update the adjacent item
-        //             LostItem.findByIdAndUpdate(item_matched._id, matched_item, {}, function(err){
-        //                 if (err) {
-        //                     var err = new Error('Sorry An Error Occurred');
-        //                     err.status = 500;
-        //                     console.log('Error updating the fucking file ');
-        //                     return next(err);
-        //                 }
-        //                 console.log("****----ItemController: Update Found Item match_found to be : "+item_matched.match_found+"\n \n");
-        //             });
-        //         }
-        //         // Save the object after checking for match
-        //         found_item.save(function (err){
-        //             if (err){
-        //                 var err = new Error("Unable to save item");
-        //                 err.status = 500;                        
-        //                 return res.render('found_item_form', {
-        //                     title: "Found",
-        //                     company: "MoFound NG",             
-        //                     error: err
-        //                 });
-        //             }                    
-        //             console.log("ItemController: Saving the item, to start matching.");
-        //             res.redirect('/admin/founds');
-        //         });
-                                
-        // });        
-        // // successful -redirect to new item detail
-        // return res.redirect(lost_item.url);
-    }
-];
+    sanitizeBody('*').escape()
+    console.log("Untamperede @₦#₦#₦#₦#₦# "+ req.file)
+    createObject("Found", req, res, FoundItem, LostItem, "admin_create_found", next);
+}
 
 // Handle lostItem create on POST.
 exports.lost_item_create_post = [

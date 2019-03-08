@@ -1,9 +1,6 @@
 var async = require('async');
 var fs = require('fs');
-// var crypto = require('crypto');
 var stringSimilarity = require('string-similarity');
-var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' });
 var async = require('async');
 
 const { body,validationResult } = require('express-validator/check');
@@ -17,52 +14,108 @@ const QUOTE_TO_SEND = 'I just reported my lost item on mofoundfyp.herokuapp.com,
 
 var FoundItem = require('../model/found');
 var LostItem = require('../model/lost');
-var Item = require('../model/item');
-
-var User = require('../model/user');
+var Droppoint = require('../model/droppoint');
 var randomize = require('randomatic');
 
 const Geo = require('geo-nearby');
-var data = [
-    [-7.30278, 149.14167, 'Hezekiah Oluwasanmi Library'],
-    [-33.86944, 151.20833, 'OAU Senate'],
-    [-37.82056, 144.96139, 'Forks & Finger, OAU'],
-    [-34.93333, 138.58333, 'White House, OAU'],
-    [-27.46778, 153.02778, 'Yellow House, OAU'],
-    [-31.95306, 115.85889, 'Social Sciences']
-  ];
+var locations = []
 
-const dataSet = Geo.createCompactSet(data);
-const geo = new Geo(dataSet, { sorted: true });
+// var data = [
+//     [-7.30278, 149.14167, 'Hezekiah Oluwasanmi Library'],
+//     [-33.86944, 151.20833, 'OAU Senate'],
+//     [-37.82056, 144.96139, 'Forks & Finger, OAU'],
+//     [-34.93333, 138.58333, 'White House, OAU'],
+//     [-27.46778, 153.02778, 'Yellow House, OAU'],
+//     [-31.95306, 115.85889, 'Social Sciences']
+//   ];
+
+// const dataSet = Geo.createCompactSet(data);
+// const geo = new Geo(dataSet, { sorted: true });
 
 // Add a new Location to the data
 function addLocation(longitude, latitude, name) {
     var data_length = data.length;
     var new_data = [latitude, longitude, name];
     data.push(new_data);
-    checkLocationData();
     return;   
 }
-function checkLocationData(){
-    for (var i=0; i < data.length; i++){
-        var l_data = data[i];
-        console.log(l_data[0], l_data[1], l_data[2]);
-    }
-    return;
-}
-checkLocationData();
+
 
 // Generate the Code
 function generateCode(){   
-    var rand = randomize('0Aa', 7);
+    var rand = randomize('0Aa', 4);
     genCode = rand;
     return rand;
+}
+
+function sendSMS(recipient, message) {
+    require('dotenv').config()
+    const accountSid = 'AC1f1a346752ecfeaf0930399b3aee4745';
+    const authToken = process.env.TWILIO_TOKEN;
+    // const authToken = "158f52a6331fc41e5f6c1375705abb8b"
+    // const authToken = "158f52a6331fc41e5f6c1375705abb8b"
+    const client = require('twilio')(accountSid, authToken);
+
+    // For user's who start phone no with 0
+    if (recipient){
+        recipient[0] = "+234"
+    }
+
+    client.messages
+    .create({
+        body: message,
+        from: '+16156967698',
+        to: recipient
+    })
+    .then(message => console.log("Sms sent successfully : "+message.sid));
 }
 
 // Generate Receiver code for matched item
 function generateReceiverCode(){
     var rand = randomize('0A', 16);
     return rand;
+}
+
+function saveImageToDB(req, res, image) {    
+    return console.log("Save image: ", req.file)
+}
+
+var global_drop=[]
+
+function loadLocation() {
+    let droplocations = []
+    let drops = []
+    var lass = undefined
+    let the_droppoint= undefined
+    // Initialize the droppoint locations
+    // async.parallel({
+    //     droppoints: function(callback){
+    //         Droppoint.find({}, callback)
+    //     }
+    // }, function(err, result){
+    //     for (var i=0; i < result.droppoints.length; i++){
+    //         the_droppoint = result.droppoints[i]
+    //         // console.log("@@@@@@@@@@@- The Droppoint: ", the_droppoint, " The index ",i)
+    //         droplocations.push(the_droppoint.getlocation)         
+    //     }
+    //     droplocations = droplocations    
+    //     drops.push(droplocations)    
+    // })
+    Droppoint.find({}, function(err, droppoints){        
+        for (var i=0; i < droppoints.length; i++){
+            the_droppoint = droppoints[i]
+            // console.log("@@@@@@@@@@@- The Droppoint: ", the_droppoint, " The index ",i)
+            drops[i] = the_droppoint.getlocation            
+        }
+        console.log("#################- The Drops: ", drops)
+        droplocations = drops
+        // droplocations.push(drops)  
+        // console.log("#################- The Location0001: ", droplocations) 
+    })
+    // console.log("#################- The Drop002: ", drops)
+    // console.log("#################- The Locations: ", droplocations)
+    
+    return droplocations
 }
 
 // Check for match
@@ -112,6 +165,7 @@ function createObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
     }
     // No errors submitting form, proceed to saving the info
     // Create a lost object with escaped and trimmed
+    
     var new_item = new ObjectSchema({
         name: req.body.name,
         category: req.body.category,
@@ -119,12 +173,19 @@ function createObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
         major_color: req.body.color,
         size_group: req.body.size,
         other_info: req.body.other_info,
-        image: req.body.image,
         location: req.body.location,
         reporter: req.body.reporter,
         status: req.body.status,    
         code: generateCode()    
     });
+
+    if (req.file){
+        console.log("file upload initiated for ... ", req.file) 
+        new_item.image = {
+            path: req.file.path,
+            caption: req.file.originalname
+        }       
+    }
 
     // Make the detail out
     new_item.makeDetail();
@@ -181,8 +242,11 @@ function createObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
                         company: "MoFound NG",             
                         error: err
                     });
-                }                    
-                console.log("ItemController: Saving the item, to start matching.");
+                }    
+                if (type="Lost"){
+                    sendSMS(new_item.reporter, "Your item was registered, while we help you find your item, use this code: "+new_item.code+" to check up on the item's status. If you need help please contact ndusunday@gmail.com or call 08031162141");                
+                }
+                console.log("ItemController: check the phone: "+new_item.reporter);
                 return res.redirect(new_item.url);
             });
                             
@@ -325,7 +389,8 @@ exports.found_item_detail = function(req, res, next) {
         text: 'Check this library to help you create share twitter url',
         url: 'https://github.com/bukinoshita/share-twitter'
       })
-    
+      // Set all location to the data
+      console.log("The Location: #₦##₦#₦#₦#₦#: ", loadLocation())
       // Get the location nearest to the user
       var user_location = undefined;
     //   if (navigator.geolocation) {
@@ -335,7 +400,7 @@ exports.found_item_detail = function(req, res, next) {
     //   }
     
     console.log("This user's current position is ", user_location);
-    var location = geo.nearBy(-33.87, 151.2, 10000);
+    // var location = geo.nearBy(-33.87, 151.2, 10000);
     // Get the item from the id
     async.parallel({
         found_item: function(callback) {
@@ -365,7 +430,7 @@ exports.found_item_detail = function(req, res, next) {
                 error: err,
                 shareurl: shareurl,
                 twittershare,
-                location: location,
+                // location: location,
                 data: results
             });
     });
@@ -385,13 +450,7 @@ exports.lost_item_detail = function(req, res,next) {
         text: 'Check this library to help you create share twitter url',
         url: 'https://github.com/bukinoshita/share-twitter'
       })
-      const dataSet = Geo.createCompactSet(data);
-      const geo = new Geo(dataSet, { sorted: true });
        
-      geo.nearBy(-33.87, 151.2, 5000);
-     
-    var location = geo.nearBy(-33.87, 151.2, 50000);
-    // Get the item from the id
     async.parallel({
         lost_item: function(callback) {
             LostItem.findOne({'_id': req.params.id}).exec(callback);
@@ -415,7 +474,6 @@ exports.lost_item_detail = function(req, res,next) {
                 error: err,
                 shareurl: shareurl,
                 twittershare,
-                location: location,
                 data: results
             });
     });
@@ -435,16 +493,12 @@ exports.found_item_code_get = function(req, res, next) {
             var err = new Error('Item not found error');
             err.status = 404;
             return next(err);           
-            // return res.status(404).render('index', {
-            //     title: 'Home',
-            //     error: err
-            // });
         }
         if (results.found_item == null && results.lost_item == null){ 
             // if both are not found
             var err = new Error('Item not is not registered, please register it first.');
             err.status = 406;
-            return res.render('auth_index', {
+            return res.render('check_up_index', {
                 title: 'Home',
                 error: err
             });            
@@ -469,6 +523,59 @@ exports.found_item_code_get = function(req, res, next) {
 }
 exports.found_item_code_post = function(req, res) {
     res.send('NOT IMPLEMENTED: FoundItem code POST' );
+}
+
+exports.found_item_detail_readonly = function(req, res){
+    // Get the item from the id
+    async.parallel({
+        found_item: function(callback) {
+            FoundItem.findOne({'_id': req.params.id}).exec(callback);
+        }        
+    }, function(err, results){
+        if (err) {
+            // No result was found
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return next(err);
+        }
+
+        if (results.found_item == null){
+            // No result was found
+            var err = new Error('Item not found error');
+            err.status = 404;
+            return next(err);
+        }
+        // Successful, so render
+        console.log("showing "+results.found_item);
+        res.render(
+            'read_only_found_detail', {
+                title: results.found_item.name,
+                company: "MoFound NG",             
+                error: err,
+                data: results
+            });
+    });
+}
+
+// Return all special items
+exports.special_items_list_get = function(req, res) {
+    async.parallel({
+        special_items: function(callback){
+            FoundItem.find({"isSpecial": true}, callback);
+        }
+    }, function(err, results){
+        if (err) {
+            return next(err)
+        }
+        // Successful, so render
+        res.render(
+            'special_item_list', {
+                title: "Special Items",
+                company: "MoFound NG",             
+                error: err,
+                data: results
+            });
+    })   
 }
 
 // Display foundItem create form on GET.
@@ -499,31 +606,20 @@ exports.found_item_create_get = function(req, res, next) {
     // res.send('NOT IMPLEMENTED: FoundItem create GET');
 };
 
-
-exports.found_item_create_post = [
-    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number'),
-    body('location').optional(),
+exports.found_item_create_post = function(req, res, next){
+    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required")
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number')
+    body('location').optional()
     // body('category').equals(!'-select-').withMessage('Select a category for item'),
 
-    sanitizeBody('*').escape(),
-    
-    // handle the req, and res and next
-    (req, res, next) => {
-        createObject("Found", req, res, FoundItem, LostItem, 'found_item_form', next);
-    }
-]
+    sanitizeBody('*').escape()
 
+    console.log("Untamperede @₦#₦#₦#₦#₦# "+ req.file)
+    createObject("Found", req, res, FoundItem, LostItem, 'found_item_form', next);
+}
+    
 // Display lostItem create form on GET.
-exports.lost_item_create_get = function(req, res) {
-    
-    // If user is not authenticated yet
-    // if (!auth){
-    //     redirect('/users/login');
-    // }else{
-
-    // }
-    
+exports.lost_item_create_get = function(req, res) {    
     async.parallel({
         lost_count: function(callback){
             FoundItem.count({}, callback);
@@ -544,19 +640,17 @@ exports.lost_item_create_get = function(req, res) {
 
 
 // Handle lostItem create on POST.
-exports.lost_item_create_post = [
-    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required"),
-    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!!!').isMobilePhone().withMessage('Reporter takes only phone number'),
-    body('location').optional(),
-    // body('category').equals('-select-').withMessage('Select a category for item'),
+exports.lost_item_create_post = function(req, res, next){
+    body('name').isLength({ min: 1 }).trim().withMessage("Item's name is required")
+    body('reporter').isLength({ min: 1 }).trim().withMessage('Phone Number should be entered!').isMobilePhone().withMessage('Reporter takes only phone number')
+    body('location').optional()
+    // body('category').equals(!'-select-').withMessage('Select a category for item'),
 
-    sanitizeBody('*').escape(),
-    
-    // handle the req, and res and next
-    (req, res, next) => {
-        createObject("Lost", req, res, LostItem, FoundItem, "lost_item_form", next);        
-    }
-]
+    sanitizeBody('*').escape()
+    console.log("Untamperede @₦#₦#₦#₦#₦# "+ req.file)
+    createObject("Lost", req, res, LostItem, FoundItem, "lost_item_form", next);        
+
+}
 
 // Display foundItem update form on GET.
 exports.found_item_update_get = function(req, res) {

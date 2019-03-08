@@ -10,16 +10,22 @@
 							<thead> 
 								<tr> 
 									<h3>Item Code: {{data.found_item.code}}</h3>
-									<p class="success">Thanks, the item was registered successfully, you can follow up on the item using the link above!!!</p>
-									<p><span class="success">If the code doesn't load this page, that means the match has been found and returned to the owner.</span></p>
+									<p class="success">{{^data.found_item.isSpecial}}<span>Thanks, the item was registered successfully, you can follow up on the item using the link above<span>{{/data.found_item.isSpecial}}</p>
+									<p class="success">{{#data.found_item.isSpecial}}<span>This item was reported by the admin, contact the admin to claim ownership of the item.<span>{{/data.found_item.isSpecial}}</p>
 									<h4>Report at any of this locations: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>									
-
 								</tr>
 							</thead>
 							<tbody>
-								{{# data.found_item.image}}
-									<tr>
-									<td>{{data.found_item.image}}</td>
+								{{# data.found_item.image}}	
+									<tr>		 
+									<div class="special-item item">
+										<img class="img" src="../../uploads/{{caption}}" alt="{{path}}" />
+									</div>
+									</tr>
+								{{/ data.found_item.image}}
+								{{^ data.found_item.image}}	
+									<tr>		 
+									<p> No Picture for this item </p>
 									</tr>
 								{{/ data.found_item.image}}
 								<tr>
@@ -58,14 +64,19 @@
 							<tfoot>
 								<tr class="actions">
 									<td colspan="1">
-									<div class="form-button">
-										<a href="/item/found/{{data.found_item._id}}/delete" class="button special small align-left"> Delete</a>
-									</div>
-									</td>
-									<td class="actions">
-									<div class="form-button">
-										<a href="/item/found/{{data.found_item._id}}/update" class="button special small align-right"> Update</a>
-									</div>
+                                    {{#data.found_item.match_found}}
+                                        <h2> A match has been found for this item </h2>
+                                    {{/data.found_item.match_found}}
+									{{^data.found_item.isSpecial}}
+                                        <div class="form-button">
+                                            <a href="/item/found/{{data.found_item._id}}/delete" class="button special small align-left"> Delete</a>
+                                        </div>
+                                        </td>
+                                        <td class="actions">
+                                        <div class="form-button">
+                                            <a href="/item/found/{{data.found_item._id}}/update" class="button special small align-right"> Update</a>
+                                        </div>
+                                    {{/data.found_item.isSpecial}}
 									</td>
 								</tr>
 								<br> <br>								
