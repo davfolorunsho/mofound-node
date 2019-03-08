@@ -61,5 +61,3 @@ typings/
 .next
 store
 
-# upload local files
-.publics/upload
