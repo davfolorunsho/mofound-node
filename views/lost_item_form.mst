@@ -33,7 +33,7 @@
 						</div>
 						
 						<div class="field half">
-							<label for="color">Major Color</label>
+							<label for="color">Color</label>
 							<input type ="text" name="color" id="color" value="{{data.lost_item.major_color}}"/>							
 						</div>
 
