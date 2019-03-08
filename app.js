@@ -18,6 +18,11 @@ require('./model/admin');
 require('./config/passport');
 var app = express();
 
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
+ 
+// Don't redirect if the hostname is `localhost:port` or the route is `/insecure`
+app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
+
 // Configure Middlewares
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,11 +38,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(require('flash')());
-
-// app.use(function(req, res){
-//     req.flash('info', 'hello!');
-//     next();
-// })
 
 app.engine('mst', mustacheExpress());
 

@@ -35,7 +35,5 @@
 			<script src="javascripts/skel.min.js"></script>
 			<script src="javascripts/util.js"></script>
 			<script src="javascripts/main.js"></script>
-			<script src="javascripts/slideshow.js"></script>
-
 	</body>
 </html>
