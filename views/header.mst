@@ -13,8 +13,7 @@
 
 			<header class="container site" id="header">
 				<div class="inner">
-					{{! <a href="/" class="logo"><img src="images/logo_resource/logo_transparent.png"/></a> }}
-					<a href="/" class="logo"><img src="images/logo_deep.png"/></a>
+					<a href="/" class="logo">ItemFind</a>
 					<nav id="nav">
 						<a href="/">Home</a>
 						<a href="/about">About</a>
