@@ -4,7 +4,7 @@
 			<section class="" id="banner">
 				<div class="inner">
 					<header>
-						<h1>Welcome to Mofound</h1>
+						<h1>Welcome to ItemFind</h1>
 					</header>
 
 					<div class="flex flex-3 flex-patch">
@@ -43,7 +43,7 @@
 					<div class="flex flex-3">
 						<article>
 							<div class="image">
-								<a href="/item/found/new"><img src="https://res.cloudinary.com/primefeed/image/upload/v1552009952/mofound/reportfounditem.png" alt="Pic 01" /></a>
+								<a href="/item/found/new"><img src="https://res.cloudinary.com/primefeed/image/upload/v1552009952/ItemFind/reportfounditem.png" alt="Pic 01" /></a>
 							</div>
 							<header>
 								<a href="/item/found/new" class="button">Enter Found Item</a>								
@@ -59,7 +59,7 @@
 							
 							<header>
 							<div class="image">
-									<img src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_210/v1552010950/mofound/followup.png" alt="Follow up" />
+									<img src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_210/v1552010950/ItemFind/followup.png" alt="Follow up" />
 									<h4>Enter the item code</h4>	
 									<p>Follow up on items reported</p>
 							</div>														
@@ -74,7 +74,7 @@
 						</article>
                         <article>
 							<div class="image">
-								<a href="/item/lost/new"><img class="" src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_225/v1552009179/mofound/missing.png" alt="Lost Item" /></a>
+								<a href="/item/lost/new"><img class="" src="https://res.cloudinary.com/primefeed/image/upload/c_scale,w_225/v1552009179/ItemFind/missing.png" alt="Lost Item" /></a>
 							</div>
 							<header>
 								<a href="/users/login" class="button">Enter Lost Item</a>
