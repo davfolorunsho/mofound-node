@@ -5,40 +5,14 @@ var async = require('async');
 
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
-const company = 'Mofound';
-const shareFacebook = require('share-facebook');
-const shareTwitter = require('share-twitter')
-const APP_ID1 = "408612589885188";
-const APP_ID = "108294790302517";
-const QUOTE_TO_SEND = 'I just reported my lost item on mofoundfyp.herokuapp.com, you might be the finder of this my item, you can also report it on mofound.com or contact 08031162141 to help me get my item back';
+const company = 'ItemFind';
 
 var FoundItem = require('../model/found');
 var LostItem = require('../model/lost');
 var Droppoint = require('../model/droppoint');
 var randomize = require('randomatic');
 
-const Geo = require('geo-nearby');
-var locations = []
-
-// var data = [
-//     [-7.30278, 149.14167, 'Hezekiah Oluwasanmi Library'],
-//     [-33.86944, 151.20833, 'OAU Senate'],
-//     [-37.82056, 144.96139, 'Forks & Finger, OAU'],
-//     [-34.93333, 138.58333, 'White House, OAU'],
-//     [-27.46778, 153.02778, 'Yellow House, OAU'],
-//     [-31.95306, 115.85889, 'Social Sciences']
-//   ];
-
-// const dataSet = Geo.createCompactSet(data);
-// const geo = new Geo(dataSet, { sorted: true });
-
-// Add a new Location to the data
-function addLocation(longitude, latitude, name) {
-    var data_length = data.length;
-    var new_data = [latitude, longitude, name];
-    data.push(new_data);
-    return;   
-}
+var twittershare = "www.twitter.com"
 
 
 // Generate the Code
@@ -47,29 +21,6 @@ function generateCode(){
     genCode = rand;
     return rand;
 }
-
-function sendSMS(recipient, message) {
-    require('dotenv').config()
-    const accountSid = 'AC1f1a346752ecfeaf0930399b3aee4745';
-    const authToken = process.env.TWILIO_TOKEN;
-    // const authToken = "158f52a6331fc41e5f6c1375705abb8b"
-    // const authToken = "158f52a6331fc41e5f6c1375705abb8b"
-    const client = require('twilio')(accountSid, authToken);
-
-    // For user's who start phone no with 0
-    if (recipient){
-        recipient[0] = "+234"
-    }
-
-    client.messages
-    .create({
-        body: message,
-        from: '+16156967698',
-        to: recipient
-    })
-    .then(message => console.log("Sms sent successfully : "+message.sid));
-}
-
 // Generate Receiver code for matched item
 function generateReceiverCode(){
     var rand = randomize('0A', 16);
@@ -243,9 +194,7 @@ function createObject(type, req, res, ObjectSchema, adjacentObjectSchema, form, 
                         error: err
                     });
                 }    
-                if (type="Lost"){
-                    sendSMS(new_item.reporter, "Your item was registered, while we help you find your item, use this code: "+new_item.code+" to check up on the item's status. If you need help please contact ndusunday@gmail.com or call 08031162141");                
-                }
+            
                 console.log("ItemController: check the phone: "+new_item.reporter);
                 return res.redirect(new_item.url);
             });
@@ -378,17 +327,6 @@ exports.lost_item_list = function(req, res) {
 
 // Display detail page for a specific found item.
 exports.found_item_detail = function(req, res, next) {
-    var shareurl =  shareFacebook({
-        quote: QUOTE_TO_SEND,
-        url: 'https://https://mofoundfyb.herokuapp.com//',
-        redirect_uri: 'https://mofoundfyb.herokuapp.com/',
-        hashtags: "#mofound",
-        app_id: APP_ID
-      });
-    var twittershare = shareTwitter({
-        text: 'Check this library to help you create share twitter url',
-        url: 'https://github.com/bukinoshita/share-twitter'
-      })
       // Set all location to the data
       console.log("The Location: #₦##₦#₦#₦#₦#: ", loadLocation())
       // Get the location nearest to the user
@@ -428,7 +366,7 @@ exports.found_item_detail = function(req, res, next) {
                 title: results.found_item.name,
                 company: "MoFound NG",             
                 error: err,
-                shareurl: shareurl,
+                shareurl: "shareurl",
                 twittershare,
                 // location: location,
                 data: results
@@ -439,18 +377,6 @@ exports.found_item_detail = function(req, res, next) {
 
 // Display detail page for a specific lost item.
 exports.lost_item_detail = function(req, res,next) {
-    var shareurl =  shareFacebook({
-        quote: QUOTE_TO_SEND,
-        url: 'https://https://mofoundfyb.herokuapp.com//',
-        redirect_uri: 'https://mofoundfyb.herokuapp.com/',
-        hashtags: "#mofound",
-        app_id: APP_ID
-      });
-    var twittershare = shareTwitter({
-        text: 'Check this library to help you create share twitter url',
-        url: 'https://github.com/bukinoshita/share-twitter'
-      })
-       
     async.parallel({
         lost_item: function(callback) {
             LostItem.findOne({'_id': req.params.id}).exec(callback);
@@ -472,7 +398,7 @@ exports.lost_item_detail = function(req, res,next) {
                 title: results.lost_item.name,
                 company: "MoFound NG",             
                 error: err,
-                shareurl: shareurl,
+                shareurl: "shareurl",
                 twittershare,
                 data: results
             });
