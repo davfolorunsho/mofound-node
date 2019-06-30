@@ -12,7 +12,6 @@
 									<h3>Item Code: {{data.found_item.code}}</h3>
 									<p class="success">{{^data.found_item.isSpecial}}<span>Thanks, the item was registered successfully, you can follow up on the item using the link above<span>{{/data.found_item.isSpecial}}</p>
 									<p class="success">{{#data.found_item.isSpecial}}<span>This item was reported by the admin, contact the admin to claim ownership of the item.<span>{{/data.found_item.isSpecial}}</p>
-									<h4>Report at any of this locations: <a href= "https://google.com">{{#location}}{{i}}{{/location}}</a> </h4>									
 								</tr>
 							</thead>
 							<tbody>
